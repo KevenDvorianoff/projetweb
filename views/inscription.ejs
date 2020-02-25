@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Inscription</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Inscription</h1>
+    <p>Welcome to inscription</p>
+    <form method="POST" action="/inscription">
+      <input type="text" name="NumCard" placeholder="Numéro de carte"  required>
+      <input type="text" name="LastName" placeholder="Nom" required>
+      <input type="text" name="FirstName" placeholder="Prénom" required>
+      <input type="date" name="BirthDate" placeholder="Date de naissance" required>
+      <input type="password" name="Password" placeholder="Mot de passe" required>
+      <input type="password" name="VerifyPassword" placeholder="Vérification mot de passe" required>
+      <input type="submit"> 
+    </form>
+    <% if(locals.error) { %>
+      <%= locals.error %>
+    <% } %>
+  </body>
+</html>
