@@ -1,11 +1,17 @@
 const User = require('../models/indexModel');
 const bcrypt = require('bcrypt');
 
-exports.Connection = function(req, res) {
+exports.Connexion = function(req, res) {
 
     res.render('index');
 
 };
+
+exports.traitementConnexion = function(req, res) {
+
+    res.render('index');
+
+}
 
 exports.Inscription = function(req, res) {
 
