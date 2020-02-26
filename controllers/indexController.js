@@ -1,9 +1,11 @@
 const User = require('../models/indexModel');
 const bcrypt = require('bcrypt');
+const func = require('../function/cookies');
 
 exports.Connexion = function(req, res) {
 
-    res.render('index');
+    const alert = func.getAlert(req);
+    res.render('index', {alert});
 
 };
 
@@ -30,56 +32,49 @@ exports.traitementInscription = function(req, res) {
         req.body.VerifyPassword !== undefined 
 
     ) {
-        if (!/^[A-Z1-9]{10}$/.test(req.body.NumCard)) {
-            res.status(400).render('inscription', {
-                error: 'Mauvais numéro'
-            })
+        if (!/^[A-Z0-9]{10}$/.test(req.body.NumCard)) {
+            alert = {type : 'danger', text : 'Mauvais numéro'}
+            res.status(400).render('inscription', {alert})
             return;
         }
         if (!/^[a-zA-Zéèîâêûôëïöüä]+-?[a-zA-Zéèîâêûôëïöüä]+$/.test(req.body.LastName)) {
-            res.status(400).render('inscription', {
-                error: 'Nom : caractère invalide'
-            })
+            alert = {type : 'danger', text : 'Nom : caractère invalide'}
+            res.status(400).render('inscription', {alert})
             return;
         }
         if (!/^[a-zA-Zéèîâêûôëïöüä]+-?[a-zA-Zéèîâêûôëïöüä]+$/.test(req.body.FirstName)) {
-            res.status(400).render('inscription', {
-                error: 'Prénom : caractère invalide'
-            })
+            alert = {type : 'danger', text : 'Prénom : caractère invalide'}
+            res.status(400).render('inscription', {alert})
             return;
         }
         let date = new Date(req.body.BirthDate);
         if (isNaN(date.getTime())) {
-            res.status(400).render('inscription', {
-                error: 'Date invalide'
-            })
+            alert = {type : 'danger', text : 'Date : caractère invalide'}
+            res.status(400).render('inscription', {alert})
             return;
         }
-        if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*@_])([-+!*@_\w]{8,15})$/.test(req.body.VerifyPassword)) {
-            res.status(400).render('inscription', {
-                error: 'Mot de passe invalide'
-            })
+        if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*@_])([-+!*@_\w]{8,15})$/.test(req.body.Password)) {
+            alert = {type : 'danger', text : 'Mot de passe invalide'}
+            res.status(400).render('inscription', {alert})
             return;
         }
         if (req.body.Password === req.body.VerifyPassword) {
             bcrypt.hash(req.body.Password, 10, function(err, hash) {
                 User.create(req.body.NumCard, hash, req.body.LastName.toLowerCase(), req.body.FirstName.toLowerCase(), date).then(() => {
+                    func.setAlert(res, 'success', "Compte créé")
                     res.redirect('/')
                 }).catch((err) => {
-                    res.status(400).render('inscription', {
-                        error: 'Numéro de carte déjà utilisé'
-                    })
+                    alert = {type : 'danger', text : 'Numéro de carte déjà utilisé'}
+                    res.status(400).render('inscription', {alert})
                 });
             });
         } else {
-            res.status(400).render('inscription', {
-                error: 'Mots de passe différents'
-            })
+            alert = {type : 'danger', text : 'Mots de passe différents'}
+            res.status(400).render('inscription', {alert})
         }
     } else {
-        res.status(400).render('inscription', {
-            error: 'Données manquantes'
-        })
+        alert = {type : 'danger', text : 'Données manquantes'}
+        res.status(400).render('inscription', {alert})
     }
     
 };
