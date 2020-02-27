@@ -14,7 +14,7 @@ exports.traitementConnexion = function(req, res) {
     User.login(req.body.NumCard, req.body.Password).then((results) => {
         const token = tokenService.createToken(results[0].NumCarte, results[0].Admin, results[0].IdPatrouille);
         func.setToken(res, token);
-        res.redirect('/users/accueil');
+        res.redirect('/users');
     }).catch((error) => {
         switch(error) {
             case User.Errors.INVALID_PASSWORD :

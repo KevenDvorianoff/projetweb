@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const indexController = require('../controllers/indexController');
+const usersMiddleware = require('../middleware/usersMiddleware')
 
 /* GET home page. */
-router.get('/', indexController.Connexion);
+router.get('/', usersMiddleware.checkConnexionIndex, indexController.Connexion);
 
-router.post('/', indexController.traitementConnexion);
+router.post('/', usersMiddleware.checkConnexionIndex, indexController.traitementConnexion);
 
-router.get('/inscription', indexController.Inscription);
+router.get('/inscription', usersMiddleware.checkConnexionIndex, indexController.Inscription);
 
-router.post('/inscription', indexController.traitementInscription);
+router.post('/inscription', usersMiddleware.checkConnexionIndex, indexController.traitementInscription);
 
 module.exports = router;

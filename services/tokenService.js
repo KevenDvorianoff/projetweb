@@ -18,7 +18,6 @@ exports.checkToken = function(token) {
                 return;
             }
             if (decoded !== undefined){
-                console.log(decoded);
                 resolve(decoded);
             } else {
                 reject(err);
