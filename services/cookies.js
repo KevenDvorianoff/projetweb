@@ -26,7 +26,7 @@ exports.clearAlert = function(res) {
 };
 
 exports.setToken = function(res, token) {
-    return res.cookie('Auth', token, { maxAge: 1 * 60 * 60 * 1000, httpOnly: true })
+    return res.cookie('Auth', token)
 }
 
 exports.getToken = function(req) {

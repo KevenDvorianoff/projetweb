@@ -9,6 +9,11 @@
     <h1>Accueil</h1>
     <p>Welcome to Accueil</p>
     <a href="/inscription">Inscription</a>
+    <form method="POST" action="/">
+      <input type="text" name="NumCard" placeholder="Numéro de carte"  required>
+      <input type="password" name="Password" placeholder="Mot de passe" required>
+      <input type="submit"> 
+    </form>
     <% if (alert) { %>
       <div class="alert alert-<%= alert.type %>" role="alert">
           <%= alert.text %>

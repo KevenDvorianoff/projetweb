@@ -1,6 +1,6 @@
 const User = require('../models/indexModel');
-const bcrypt = require('bcrypt');
-const func = require('../function/cookies');
+const func = require('../services/cookies');
+const tokenService = require('../services/tokenService')
 
 exports.Connexion = function(req, res) {
 
@@ -11,7 +11,26 @@ exports.Connexion = function(req, res) {
 
 exports.traitementConnexion = function(req, res) {
 
-    res.render('index');
+    User.login(req.body.NumCard, req.body.Password).then((results) => {
+        const token = tokenService.createToken(results[0].NumCarte, results[0].Admin, results[0].IdPatrouille);
+        func.setToken(res, token);
+        res.redirect('/users/accueil');
+    }).catch((error) => {
+        switch(error) {
+            case User.Errors.INVALID_PASSWORD :
+                alert = {type : 'danger', text : 'Mauvais identifiant/mot de passe'}
+                res.status(400).render('index', {alert})
+                break;
+            case User.Errors.NOT_FOUND : 
+                alert = {type : 'danger', text : 'Mauvais identifiant/mot de passe'}
+                res.status(400).render('index', {alert})
+                break;
+            default : 
+                alert = {type : 'danger', text : 'Erreur interne au serveur'}
+                res.status(500).render('index', {alert})
+                break;
+        }
+    });
 
 }
 
@@ -59,15 +78,13 @@ exports.traitementInscription = function(req, res) {
             return;
         }
         if (req.body.Password === req.body.VerifyPassword) {
-            bcrypt.hash(req.body.Password, 10, function(err, hash) {
-                User.create(req.body.NumCard, hash, req.body.LastName.toLowerCase(), req.body.FirstName.toLowerCase(), date).then(() => {
-                    func.setAlert(res, 'success', "Compte créé")
-                    res.redirect('/')
-                }).catch((err) => {
-                    alert = {type : 'danger', text : 'Numéro de carte déjà utilisé'}
-                    res.status(400).render('inscription', {alert})
-                });
-            });
+            User.create(req.body.NumCard, req.body.Password, req.body.LastName.toLowerCase(), req.body.FirstName.toLowerCase(), date).then(() => {
+                func.setAlert(res, 'success', 'Compte créé')
+                res.redirect('/')
+            }).catch((error) => {
+                alert = {type : 'danger', text : 'Numéro de carte déjà utilisé'}
+                res.status(400).render('inscription', {alert})
+            }); 
         } else {
             alert = {type : 'danger', text : 'Mots de passe différents'}
             res.status(400).render('inscription', {alert})

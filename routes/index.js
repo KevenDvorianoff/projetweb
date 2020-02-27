@@ -5,7 +5,7 @@ const indexController = require('../controllers/indexController');
 /* GET home page. */
 router.get('/', indexController.Connexion);
 
-router.post('/', indexController.traitementConnexion)
+router.post('/', indexController.traitementConnexion);
 
 router.get('/inscription', indexController.Inscription);
 
