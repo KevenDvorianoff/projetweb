@@ -5,7 +5,7 @@ const key = secretkey.secretkey;
 
 exports.createToken = function(numcard, admin, pat) {
 
-    return jwt.sign( {NumCarte: numcard, Admin: admin, IdPatrouille: pat}, key, {expiresIn: '1h'});
+    return jwt.sign( {NumCarte: numcard, Admin: admin, IdPatrouille: pat}, key, {expiresIn: '12h'});
 
 }
 

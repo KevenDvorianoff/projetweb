@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const indexController = require('../controllers/indexController');
-const usersMiddleware = require('../middleware/usersMiddleware')
+const usersMiddleware = require('../middleware/usersMiddleware');
 
 /* GET home page. */
 router.get('/', usersMiddleware.checkConnexionIndex, indexController.Connexion);
