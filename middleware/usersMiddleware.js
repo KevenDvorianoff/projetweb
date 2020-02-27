@@ -38,3 +38,36 @@ exports.checkAdmin = function(req, res, next) {
 
 }
 
+exports.checkNewUser = function(req, res, next) {
+
+    const token = func.getToken(req);
+    tokenService.checkToken(token).then((results) => {
+        
+    }).catch(() => {
+        
+    });
+
+}
+
+exports.checkScout = function(req, res, next) {
+
+    const token = func.getToken(req);
+    tokenService.checkToken(token).then((results) => {
+        
+    }).catch(() => {
+        
+    });
+
+}
+
+exports.checkChef = function(req, res, next) {
+
+    const token = func.getToken(req);
+    tokenService.checkToken(token).then((results) => {
+        
+    }).catch(() => {
+        
+    });
+
+}
+
