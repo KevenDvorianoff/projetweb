@@ -4,6 +4,6 @@ const usersController = require('../controllers/usersController');
 const usersMiddleware = require('../middleware/usersMiddleware');
 
 /* GET users listing. */
-router.get('/', usersMiddleware.checkConnexionUsers, usersController.Accueil);
+router.get('/', usersMiddleware.checkConnexionUsers, usersController.checkPat);
 
 module.exports = router;

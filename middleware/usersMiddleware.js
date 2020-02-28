@@ -41,10 +41,16 @@ exports.checkAdmin = function(req, res, next) {
 exports.checkNewUser = function(req, res, next) {
 
     const token = func.getToken(req);
-    tokenService.checkToken(token).then((results) => {
-        
+    tokenService.checkToken(token).then((result) => {
+        if (result.Admin) {
+            res.redirect('/');
+        } else if (result.IdPatrouille === null) {
+            next();
+        } else {
+            res.redirect('/');
+        }
     }).catch(() => {
-        
+        res.redirect('/');
     });
 
 }
@@ -52,10 +58,24 @@ exports.checkNewUser = function(req, res, next) {
 exports.checkScout = function(req, res, next) {
 
     const token = func.getToken(req);
-    tokenService.checkToken(token).then((results) => {
-        
+    tokenService.checkToken(token).then((result) => {
+        if (result.Admin) {
+            res.redirect('/');
+        } else if (result.IdPatrouille === null) {
+            res.redirect('/');
+        } else {
+            Users.getNamePat(result.IdPatrouille).then((results) => {
+                if(results[0].NomPatrouille === 'Maitrise') {
+                    res.redirect('/');
+                } else {
+                    next();
+                }
+            }).catch(() => {
+                res.redirect('/');
+            });
+        }
     }).catch(() => {
-        
+        res.redirect('/');
     });
 
 }
@@ -63,10 +83,24 @@ exports.checkScout = function(req, res, next) {
 exports.checkChef = function(req, res, next) {
 
     const token = func.getToken(req);
-    tokenService.checkToken(token).then((results) => {
-        
+    tokenService.checkToken(token).then((result) => {
+        if (result.Admin) {
+            res.redirect('/');
+        } else if (result.IdPatrouille === null) {
+            res.redirect('/');
+        } else {
+            Users.getNamePat(result.IdPatrouille).then((results) => {
+                if(results[0].NomPatrouille === 'Maitrise') {
+                    next();
+                } else {
+                    res.redirect('/');
+                }
+            }).catch(() => {
+                res.redirect('/');
+            });
+        }
     }).catch(() => {
-        
+        res.redirect('/');
     });
 
 }
