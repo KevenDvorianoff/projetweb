@@ -7,15 +7,15 @@ exports.checkPat = function(req, res) {
     const token = func.getToken(req);
     tokenService.checkToken(token).then((result) => {
         if (result.Admin) {
-            res.redirect('/users/admin');
+            res.redirect('/admin');
         } else if (result.IdPatrouille === null) {
-            res.redirect('/users/newuser');
+            res.redirect('/newuser');
         } else {
             Users.getNamePat(result.IdPatrouille).then((results) => {
                 if(results[0].NomPatrouille === 'Maitrise') {
-                    res.redirect('/users/chef');
+                    res.redirect('/chef');
                 } else {
-                    res.redirect('/users/scout');
+                    res.redirect('/scout');
                 }
             }).catch(() => {
                 res.redirect('/');
