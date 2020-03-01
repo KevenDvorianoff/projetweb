@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS TYPE_M (
 
 DROP TABLE IF EXISTS MATERIEL;
 CREATE TABLE IF NOT EXISTS MATERIEL (
-		IdMateriel int, 
+	IdMateriel int, 
         NomMateriel varchar(255), 
         IdType_M int,
 
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS TYPE_E(
 
 DROP TABLE IF EXISTS TROUPE;
 CREATE TABLE IF NOT EXISTS TROUPE(
-        IdTroupe int, 
+        IdTroupe int AUTO_INCREMENT, 
         NomTroupe varchar(255), 
 
         PRIMARY KEY(IdTroupe)                  
@@ -38,8 +38,8 @@ CREATE TABLE IF NOT EXISTS TROUPE(
 
 DROP TABLE IF EXISTS EVENEMENTS;
 CREATE TABLE IF NOT EXISTS EVENEMENTS(
-        IdEvenement int,
-        dateEvenement datetime, 
+        IdEvenement int AUTO_INCREMENT,
+        DateEvenement datetime, 
         IdType_E int,
         IdTroupe int, 
 
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS EVENEMENTS(
 
 DROP TABLE IF EXISTS PATROUILLE;
 CREATE TABLE IF NOT EXISTS PATROUILLE(
-        IdPatrouille int, 
+        IdPatrouille int AUTO_INCREMENT, 
         NomPatrouille varchar(255), 
         IdTroupe int, 
 
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS POSSEDER(
 
 DROP TABLE IF EXISTS UTILISATEUR;
 CREATE TABLE IF NOT EXISTS UTILISATEUR(
-        NumCarte int,
+        NumCarte varchar(255),
         Motdepasse varchar(255),
         Nom varchar(255), 
         Prenom varchar(255),
@@ -82,6 +82,15 @@ CREATE TABLE IF NOT EXISTS UTILISATEUR(
 
         PRIMARY KEY(NumCarte), 
         FOREIGN KEY(IdPatrouille) REFERENCES PATROUILLE(IdPatrouille)                
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS DEMANDE;
+CREATE TABLE IF NOT EXISTS DEMANDE (
+        NumCarte varchar(255),
+        NomTroupe varchar(255), 
+
+        PRIMARY KEY(NumCarte),
+        FOREIGN KEY(NumCarte) REFERENCES utilisateur(NumCarte)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 

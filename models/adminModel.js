@@ -25,6 +25,26 @@ const Admin = {
                 }
             });
         });
+    },
+
+    deleteRequest : function(numcard) {
+        return new Promise((resolve, reject) => {
+            connection.query('DELETE FROM demande WHERE ?', {NumCarte:numcard}, function(error, results) {
+                if (error) {
+                    reject(Errors.CONNECTION_ERROR);
+                    return;
+                } else {
+                    resolve();
+                }
+                
+            });
+        });
+    },
+
+    acceptRequest : function(numcard) {
+        return new Promise((resolve, reject) => {
+            
+        });
     }
 
 }

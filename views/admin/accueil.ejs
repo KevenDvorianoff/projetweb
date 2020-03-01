@@ -3,6 +3,7 @@
   <head>
     <title>Accueil</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
   </head>
   <body>
     <h1>Accueil</h1>
@@ -16,7 +17,20 @@
           <%= locals.norequest.text %>
     <% } %>
     <% if (locals.results) { %>
-      <%= locals.results[0].NomTroupe %>
-<% } %>
+      <% results.forEach(element => { %>
+        <%= element.NomTroupe %>
+        <%= element.NumCarte %>
+        <a href="/admin/delete/<%= element.NumCarte %>">
+          <button class="btn btn-danger" type="button">
+              Supprimer
+          </button>
+      </a>
+      <a href="/admin/accept/<%= element.NumCarte %>">
+        <button class="btn btn-success" type="button">
+            Accepter
+        </button>
+    </a>
+      <% }) %>
+    <% } %>
   </body>
 </html>

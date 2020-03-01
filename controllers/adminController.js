@@ -18,3 +18,25 @@ exports.Accueil = function(req, res) {
     });
 
 };
+
+exports.deleteRequest = function(req, res) {
+
+    const numcard = req.params.NumCard;
+    Admin.deleteRequest(numcard).then(() => {
+        res.redirect('/admin')
+    }).catch(() => {
+        res.redirect(503, '/admin')
+    });
+
+};
+
+exports.acceptRequest = function(req, res) {
+
+    const numcard = req.params.NumCard;
+    Admin.acceptRequest(numcard).then(() => {
+        res.redirect('/admin')
+    }).catch(() => {
+        res.redirect(503, '/admin')
+    });
+    
+};
