@@ -1,4 +1,4 @@
-const NewUser = require('../models/newuserModel')
+const NewUser = require('../models/newuserModel');
 
 exports.demande = function(req, res) {
 

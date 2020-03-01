@@ -1,6 +1,6 @@
 const User = require('../models/indexModel');
 const func = require('../services/cookies');
-const tokenService = require('../services/tokenService')
+const tokenService = require('../services/tokenService');
 
 exports.Connexion = function(req, res) {
 
