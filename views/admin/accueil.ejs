@@ -7,6 +7,16 @@
   <body>
     <h1>Accueil</h1>
     <p>Welcome to Accueil</p>
-    
+    <% if (locals.alert) { %>
+      <div class="alert alert-<%= locals.alert.type %>" role="alert">
+          <%= locals.alert.text %>
+      </div>
+    <% } %>
+    <% if (locals.norequest) { %>
+          <%= locals.norequest.text %>
+    <% } %>
+    <% if (locals.results) { %>
+      <%= locals.results[0].NomTroupe %>
+<% } %>
   </body>
 </html>
