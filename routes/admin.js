@@ -9,4 +9,8 @@ router.get('/delete/:NumCard', usersMiddleware.checkConnexionUsers, usersMiddlew
 
 router.get('/accept/:NumCard', usersMiddleware.checkConnexionUsers, usersMiddleware.checkAdmin, adminController.acceptRequest);
 
+router.get('/troupe', usersMiddleware.checkConnexionUsers, usersMiddleware.checkAdmin, adminController.Troupe);
+
+router.get('/troupe/delete/:NomTroupe', usersMiddleware.checkConnexionUsers, usersMiddleware.checkAdmin, adminController.deleteTroupe);
+
 module.exports = router;

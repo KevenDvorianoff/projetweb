@@ -2,8 +2,11 @@ const connection = require('../config/database');
 
 const Errors = {
 
-    NO_RESULTS: new Error('No results'),
-    CONNECTION_ERROR: new Error('Unable to query database')
+    BAD_REQUEST: new Error('Bad request'),
+    CONNECTION_ERROR: new Error('Unable to query database'),
+    TROOP_ALREADY_EXIST: new Error('Troop already exist'),
+    PATROL_ALREADY_EXIST: new Error('Patrol already exist'),
+    
 
 }
 
@@ -36,14 +39,115 @@ const Admin = {
                 } else {
                     resolve();
                 }
-                
             });
         });
     },
 
     acceptRequest : function(numcard) {
         return new Promise((resolve, reject) => {
-            
+            connection.query('SELECT NomTroupe FROM demande WHERE ?', {NumCarte:numcard}, function(error1, results1) {
+                if (error1) {
+                    reject(Errors.CONNECTION_ERROR);
+                    return;
+                }
+                if(results1[0] !== undefined) {
+                    connection.query('INSERT INTO troupe SET ?', {NomTroupe:results1[0].NomTroupe}, function(error2, results2) {
+                        if (error2) {
+                            reject(Errors.TROOP_ALREADY_EXIST);
+                            return;
+                        } else {
+                            connection.query('INSERT INTO patrouille SET ?', {NomPatrouille:"Maîtrise", IdTroupe:results2.insertId}, function(error3, results3) {
+                                if (error3) {
+                                    reject(Errors.PATROL_ALREADY_EXIST);
+                                    return;
+                                } else {
+                                    connection.query('UPDATE utilisateur SET ? WHERE ?', [{IdPatrouille:results3.insertId},{NumCarte:numcard}], function(error4, results4) {
+                                        if (error4) {
+                                            reject(Errors.CONNECTION_ERROR);
+                                            return;
+                                        } else {
+                                            connection.query('DELETE FROM demande WHERE ?', {NumCarte:numcard}, function(error5, results5) {
+                                                if (error5) {
+                                                    reject(Errors.CONNECTION_ERROR);
+                                                    return;
+                                                } else {
+                                                    resolve();
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    reject(Errors.BAD_REQUEST);
+                }
+            });
+        });
+    }, 
+
+    getTroop : function() {
+        return new Promise((resolve, reject) => {
+            connection.query('SELECT NomTroupe FROM troupe', function(error, results) {
+                if (error) {
+                    reject(Errors.CONNECTION_ERROR);
+                    return;
+                }
+                if(results[0] !== undefined) {
+                    resolve(results)
+                } else {
+                    reject(Errors.NO_RESULTS);
+                }
+            });
+        });
+    },
+
+    delTroop : function(nametroop) {
+        return new Promise((resolve, reject) => {
+            connection.query('SELECT IdTroupe FROM troupe WHERE ?',{NomTroupe:nametroop}, function(error1, results1) {
+                if (error1) {
+                    reject(Errors.CONNECTION_ERROR);
+                    return;
+                }
+                if(results1[0] !== undefined) {
+                    connection.query('SELECT IdPatrouille FROM patrouille WHERE ?',{IdTroupe:results1[0].IdTroupe}, function(error2, results2) {
+                        if (error2) {
+                            reject(Errors.CONNECTION_ERROR);
+                            return;
+                        } 
+                        if(results2[0] !== undefined) {
+                            results2.forEach(element => {
+                                connection.query('UPDATE utilisateur SET ? WHERE ?', [{IdPatrouille:null},{IdPatrouille:element.IdPatrouille}], function(error3, results3) {
+                                    if (error3) {
+                                        reject(Errors.CONNECTION_ERROR);
+                                        return;
+                                    }
+                                });
+                            });
+                        } else {
+                            reject(Errors.BAD_REQUEST);
+                        }
+                    });
+                    connection.query('DELETE FROM patrouille WHERE ?', {IdTroupe:results1[0].IdTroupe}, function(error4, results4) {
+                        if (error4) {
+                            reject(Errors.CONNECTION_ERROR);
+                            return;
+                        } else {
+                            connection.query('DELETE FROM troupe WHERE ?', {IdTroupe:results1[0].IdTroupe}, function(error5, results5) {
+                                if (error5) {
+                                    reject(Errors.CONNECTION_ERROR);
+                                    return;
+                                } else {
+                                    resolve();
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    reject(Errors.BAD_REQUEST);
+                }
+            });
         });
     }
 

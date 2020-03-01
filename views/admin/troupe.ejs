@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Demande</title>
+    <title>Troupe</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
   </head>
   <body>
-    <h1>Demande</h1>
-    <p>Welcome to Demande</p>
+    <h1>Troupe</h1>
+    <p>Welcome to Troupe</p>
     <% if (locals.alert) { %>
       <div class="alert alert-<%= locals.alert.type %>" role="alert">
           <%= locals.alert.text %>
@@ -19,23 +19,17 @@
     <% if (locals.results) { %>
       <% results.forEach(element => { %>
         <%= element.NomTroupe %>
-        <%= element.NumCarte %>
-        <a href="/admin/accept/<%= element.NumCarte %>">
-          <button class="btn btn-success" type="button">
-              Accepter
-          </button>
-        </a>
-        <a href="/admin/delete/<%= element.NumCarte %>">
+        <a href="/admin/troupe/delete/<%= element.NomTroupe %>">
           <button class="btn btn-danger" type="button">
               Supprimer
           </button>
         </a>
       <% }) %>
     <% } %>
-    <a href="/admin/troupe">
-      <button type="button">
-          Troupe
-      </button>
-    </a>
+    <a href="/admin">
+        <button type="button">
+            Demande
+        </button>
+      </a>
   </body>
 </html>

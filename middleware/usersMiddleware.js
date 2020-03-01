@@ -1,5 +1,6 @@
 const tokenService = require('../services/tokenService');
 const func = require('../services/cookies');
+const Users = require('../models/usersModel');
 
 exports.checkConnexionIndex = function(req, res, next) {
 
@@ -65,7 +66,7 @@ exports.checkScout = function(req, res, next) {
             res.redirect('/');
         } else {
             Users.getNamePat(result.IdPatrouille).then((results) => {
-                if(results[0].NomPatrouille === 'Maitrise') {
+                if(results[0].NomPatrouille === 'Maîtrise') {
                     res.redirect('/');
                 } else {
                     next();
@@ -90,7 +91,7 @@ exports.checkChef = function(req, res, next) {
             res.redirect('/');
         } else {
             Users.getNamePat(result.IdPatrouille).then((results) => {
-                if(results[0].NomPatrouille === 'Maitrise') {
+                if(results[0].NomPatrouille === 'Maîtrise') {
                     next();
                 } else {
                     res.redirect('/');

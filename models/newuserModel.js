@@ -20,6 +20,7 @@ const NewUser = {
                 connection.query('INSERT INTO demande SET ?', {NumCarte:results.NumCarte, NomTroupe:name}, function(error, result) {
                     if (error) {
                         reject(Errors.ALREADY_EXISTS);
+                        return;
                     } else {
                         resolve();
                     }

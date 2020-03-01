@@ -12,7 +12,7 @@ exports.checkPat = function(req, res) {
             res.redirect('/newuser');
         } else {
             Users.getNamePat(result.IdPatrouille).then((results) => {
-                if(results[0].NomPatrouille === 'Maitrise') {
+                if(results[0].NomPatrouille === 'Maîtrise') {
                     res.redirect('/chef');
                 } else {
                     res.redirect('/scout');

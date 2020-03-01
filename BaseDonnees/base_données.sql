@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS TROUPE(
         IdTroupe int AUTO_INCREMENT, 
         NomTroupe varchar(255), 
 
-        PRIMARY KEY(IdTroupe)                  
+        PRIMARY KEY(IdTroupe, NomTroupe)                  
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS EVENEMENTS;
