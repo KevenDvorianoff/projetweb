@@ -24,7 +24,7 @@ const Admin = {
                 if(results[0] !== undefined) {
                     resolve(results)
                 } else {
-                    reject(Errors.NO_RESULTS);
+                    reject(Errors.BAD_REQUEST);
                 }
             });
         });
@@ -97,7 +97,7 @@ const Admin = {
                 if(results[0] !== undefined) {
                     resolve(results)
                 } else {
-                    reject(Errors.NO_RESULTS);
+                    reject(Errors.BAD_REQUEST);
                 }
             });
         });

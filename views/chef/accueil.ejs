@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Patrouille</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  </head>
+  <body>
+    <h1>Patrouille</h1>
+    <p>Welcome to Patrouille</p>
+    <% if (locals.alert) { %>
+        <div class="alert alert-<%= locals.alert.type %>" role="alert">
+            <%= locals.alert.text %>
+        </div>
+      <% } %>
+      <% if (locals.norequest) { %>
+            <%= locals.norequest.text %>
+      <% } %>
+      <% if (locals.results) { %>
+        <% results.forEach(element => { %>
+          <%= element.NomPatrouille %>
+          <a href="/chef/update/<%= element.IdPatrouille %>">
+            <button class="btn btn-success" type="button">
+                Modifier
+            </button>
+          </a>
+          <a href="/chef/delete/<%= element.IdPatrouille %>">
+            <button class="btn btn-danger" type="button">
+                Supprimer
+            </button>
+          </a>
+        <% }) %>
+      <% } %>
+      <a href="/chef/create/<%= element.IdPatrouille %>">
+        <button class="btn btn-danger" type="button">
+            Ajouter une patrouille
+        </button>
+      </a>
+  </body>
+</html>
