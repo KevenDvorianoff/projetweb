@@ -89,7 +89,7 @@ const Admin = {
 
     getTroop : function() {
         return new Promise((resolve, reject) => {
-            connection.query('SELECT NomTroupe FROM troupe', function(error, results) {
+            connection.query('SELECT NomTroupe FROM troupe ORDER BY NomTroupe', function(error, results) {
                 if (error) {
                     reject(Errors.CONNECTION_ERROR);
                     return;
@@ -124,18 +124,24 @@ const Admin = {
                                         return;
                                     }
                                 });
+                                connection.query('DELETE FROM posseder WHERE ?',{IdPatrouille:element.IdPatrouille}, function(error4, result4) {
+                                    if (error4) {
+                                        reject(Errors.CONNECTION_ERROR);
+                                        return;
+                                    }
+                                });
                             });
                         } else {
                             reject(Errors.BAD_REQUEST);
                         }
                     });
-                    connection.query('DELETE FROM patrouille WHERE ?', {IdTroupe:results1[0].IdTroupe}, function(error4, results4) {
-                        if (error4) {
+                    connection.query('DELETE FROM patrouille WHERE ?', {IdTroupe:results1[0].IdTroupe}, function(error5, results5) {
+                        if (error5) {
                             reject(Errors.CONNECTION_ERROR);
                             return;
                         } else {
-                            connection.query('DELETE FROM troupe WHERE ?', {IdTroupe:results1[0].IdTroupe}, function(error5, results5) {
-                                if (error5) {
+                            connection.query('DELETE FROM troupe WHERE ?', {IdTroupe:results1[0].IdTroupe}, function(error6, results6) {
+                                if (error6) {
                                     reject(Errors.CONNECTION_ERROR);
                                     return;
                                 } else {

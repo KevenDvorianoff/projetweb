@@ -9,7 +9,7 @@ exports.demande = function(req, res) {
 exports.traitementDemande = function(req, res) {
 
     if (req.body.NomTroupe !== undefined) {
-        if (!/^[0-9]{1,3}[-][a-zA-Z0-9- ]+$/.test(req.body.NomTroupe)) {
+        if (!/^[0-9]{1,3}[-][a-zA-Z0-9-]+$/.test(req.body.NomTroupe)) {
             alert = {type : 'danger', text : 'Mauvais format.'}
             res.status(400).render('demande', {alert})
             return;
