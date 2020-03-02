@@ -20,12 +20,12 @@
       <% results.forEach(element => { %>
         <%= element.NomTroupe %>
         <%= element.NumCarte %>
-        <a href="/admin/accept/<%= element.NumCarte %>">
+        <a href="/admin/demande/accept/<%= element.NumCarte %>">
           <button class="btn btn-success" type="button">
               Accepter
           </button>
         </a>
-        <a href="/admin/delete/<%= element.NumCarte %>">
+        <a href="/admin/demande/delete/<%= element.NumCarte %>">
           <button class="btn btn-danger" type="button">
               Supprimer
           </button>

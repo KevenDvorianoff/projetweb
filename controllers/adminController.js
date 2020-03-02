@@ -1,18 +1,18 @@
 const Admin = require('../models/adminModel')
 
-exports.Accueil = function(req, res) {
+exports.getRequest = function(req, res) {
 
     Admin.getRequest().then((results) => {
-        res.render('admin/accueil', {results})
+        res.render('admin/demande', {results})
     }).catch((error) => {
         switch(error) {
             case Admin.Errors.NO_RESULTS :
                 norequest = {text : 'Pas de demande.'}
-                res.render('admin/accueil', {norequest})
+                res.render('admin/demande', {norequest})
                 break;
             default : 
                 alert = {type : 'danger', text : 'Service indisponible.'}
-                res.status(503).render('admin/accueil', {alert})
+                res.status(503).render('admin/demande', {alert})
                 break;
         }
     });
@@ -23,9 +23,9 @@ exports.deleteRequest = function(req, res) {
 
     const numcard = req.params.NumCard;
     Admin.deleteRequest(numcard).then(() => {
-        res.redirect('/admin')
+        res.redirect('/admin/demande')
     }).catch(() => {
-        res.redirect(503, '/admin')
+        res.redirect(503, '/admin/demande')
     });
 
 };
@@ -34,27 +34,27 @@ exports.acceptRequest = function(req, res) {
 
     const numcard = req.params.NumCard;
     Admin.acceptRequest(numcard).then(() => {
-        res.redirect('/admin')
+        res.redirect('/admin/demande')
     }).catch(() => {
         switch(error) {
             case Admin.Errors.TROOP_ALREADY_EXIST :
-                res.redirect(400, '/admin')
+                res.redirect(400, '/admin/demande')
                 break;
             case Admin.Errors.PATROL_ALREADY_EXIST : 
-                res.redirect(400, '/admin')
+                res.redirect(400, '/admin/demande')
                 break;
             case Admin.Errors.BAD_REQUEST :
-                res.redirect(400, '/admin')
+                res.redirect(400, '/admin/demande')
                 break;
             default : 
-                res.redirect(503, '/admin')
+                res.redirect(503, '/admin/demande')
                 break;
         }
     });
     
 };
 
-exports.Troupe = function(req, res) {
+exports.getTroop = function(req, res) {
 
     Admin.getTroop().then((results) => {
         res.render('admin/troupe', {results})
@@ -73,7 +73,7 @@ exports.Troupe = function(req, res) {
 
 };
 
-exports.deleteTroupe = function(req, res) {
+exports.deleteTroop = function(req, res) {
 
     const nametroop = req.params.NomTroupe;
     Admin.delTroop(nametroop).then(() => {

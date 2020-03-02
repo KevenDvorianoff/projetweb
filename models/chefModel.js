@@ -2,6 +2,7 @@ const connection = require('../config/database');4
 
 const Errors = {
 
+    NO_RESULTS: new Error('No results'),
     BAD_REQUEST: new Error('Bad request'),
     CONNECTION_ERROR: new Error('Unable to query database'),
     TROOP_ALREADY_EXIST: new Error('Troop already exist'),
@@ -24,11 +25,12 @@ const Chef = {
                 if(results[0] !== undefined) {
                     resolve(results)
                 } else {
-                    reject(Errors.BAD_REQUEST);
+                    reject(Errors.NO_RESULTS);
                 }
             });
         });
-    },
+    }
+
 }
 
 module.exports = Chef;

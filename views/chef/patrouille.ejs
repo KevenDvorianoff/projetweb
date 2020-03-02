@@ -18,23 +18,15 @@
       <% } %>
       <% if (locals.results) { %>
         <% results.forEach(element => { %>
-          <%= element.NomPatrouille %>
-          <a href="/chef/update/<%= element.IdPatrouille %>">
-            <button class="btn btn-success" type="button">
-                Modifier
-            </button>
-          </a>
-          <a href="/chef/delete/<%= element.IdPatrouille %>">
-            <button class="btn btn-danger" type="button">
-                Supprimer
-            </button>
-          </a>
+          <% if (element.NomPatrouille !== 'Maîtrise') { %>
+            <%= element.NomPatrouille %>
+            <a href="/chef/patrouille/delete/<%= element.NomPatrouille %>">
+              <button class="btn btn-danger" type="button">
+                  Supprimer
+              </button>
+            </a>
+          <% } %>
         <% }) %>
       <% } %>
-      <a href="/chef/create/<%= element.IdPatrouille %>">
-        <button class="btn btn-danger" type="button">
-            Ajouter une patrouille
-        </button>
-      </a>
   </body>
 </html>

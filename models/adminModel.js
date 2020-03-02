@@ -2,6 +2,7 @@ const connection = require('../config/database');
 
 const Errors = {
 
+    NO_RESULTS: new Error('No results'),
     BAD_REQUEST: new Error('Bad request'),
     CONNECTION_ERROR: new Error('Unable to query database'),
     TROOP_ALREADY_EXIST: new Error('Troop already exist'),
@@ -24,7 +25,7 @@ const Admin = {
                 if(results[0] !== undefined) {
                     resolve(results)
                 } else {
-                    reject(Errors.BAD_REQUEST);
+                    reject(Errors.NO_RESULTS);
                 }
             });
         });
@@ -81,7 +82,7 @@ const Admin = {
                         }
                     });
                 } else {
-                    reject(Errors.BAD_REQUEST);
+                    reject(Errors.NO_RESULTS);
                 }
             });
         });
@@ -97,7 +98,7 @@ const Admin = {
                 if(results[0] !== undefined) {
                     resolve(results)
                 } else {
-                    reject(Errors.BAD_REQUEST);
+                    reject(Errors.NO_RESULTS);
                 }
             });
         });
