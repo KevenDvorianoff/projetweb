@@ -18,14 +18,12 @@
       <% } %>
       <% if (locals.results) { %>
         <% results.forEach(element => { %>
-          <% if (element.NomPatrouille !== 'Maîtrise') { %>
-            <%= element.NomPatrouille %>
-            <a href="/chef/patrouille/delete/<%= element.NomPatrouille %>">
-              <button class="btn btn-danger" type="button">
-                  Supprimer
-              </button>
-            </a>
-          <% } %>
+          <%= element.NomPatrouille %>
+          <a href="/chef/patrouille/delete/<%= element.NomPatrouille %>">
+            <button class="btn btn-danger" type="button">
+                Supprimer
+            </button>
+          </a>
         <% }) %>
       <% } %>
   </body>
