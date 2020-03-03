@@ -1,9 +1,11 @@
-const Admin = require('../models/adminModel')
+const Admin = require('../models/adminModel');
+const func = require('../services/cookies');
 
 exports.getRequest = function(req, res) {
 
+    const alert = func.getAlert(req);
     Admin.getRequest().then((results) => {
-        res.render('admin/demande', {results})
+        res.render('admin/demande', {results,alert})
     }).catch((error) => {
         switch(error) {
             case Admin.Errors.NO_RESULTS :
@@ -35,13 +37,11 @@ exports.acceptRequest = function(req, res) {
     const numcard = req.params.NumCard;
     Admin.acceptRequest(numcard).then(() => {
         res.redirect('/admin/demande')
-    }).catch(() => {
+    }).catch((error) => {
         switch(error) {
             case Admin.Errors.TROOP_ALREADY_EXIST :
-                res.redirect(400, '/admin/demande')
-                break;
-            case Admin.Errors.PATROL_ALREADY_EXIST : 
-                res.redirect(400, '/admin/demande')
+                func.setAlert(res, 'danger', 'Cette troupe existe déjà.')
+                res.redirect('/admin/demande')
                 break;
             case Admin.Errors.BAD_REQUEST :
                 res.redirect(400, '/admin/demande')

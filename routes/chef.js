@@ -7,8 +7,8 @@ router.get('/patrouille', usersMiddleware.checkConnexionUsers, usersMiddleware.c
 
 router.post('/patrouille', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.createPatrol);
 
-router.get('/patrouille/delete/:NomPatrouille', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.deletePatrol)
+router.get('/patrouille/delete/:NomPatrouille', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.deletePatrol);
 
-router.post('/patrouille/modifier/:Nompatrouille', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.updatePatrol);
-
+/*router.post('/patrouille/modifier/:Nompatrouille', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.updatePatrol);
+*/
 module.exports = router;

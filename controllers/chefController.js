@@ -71,6 +71,7 @@ exports.createPatrol = function(req, res) {
 
 };
 
+
 exports.getScout = function(req, res) {
 
     Chef.getScout(req).then((results) => {
