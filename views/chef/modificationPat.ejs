@@ -16,24 +16,26 @@
       <% if (locals.norequest) { %>
             <%= locals.norequest.text %>
       <% } %>
-      <% if (locals.results) { %>
+      <% if (locals.results && locals.namepatrol) { %>
         <% results.forEach(element => { %>
-          <%= element.NomPatrouille %>
-          <a href="/chef/patrouille/modifier/<%= element.NomPatrouille %>">
-            <button class="btn btn-success" type="button">
-                Modifier
-            </button>
-          </a>
-          <a href="/chef/patrouille/delete/<%= element.NomPatrouille %>">
+          <%= element.NumCarte %>
+          <%= element.Nom %>
+          <%= element.Prenom %>
+          <a href="/chef/patrouille/modifier/<%= locals.namepatrol %>/delete/<%= element.NumCarte %>">
             <button class="btn btn-danger" type="button">
                 Supprimer
             </button>
           </a>
         <% }) %>
       <% } %>
-      <form method="POST" action="/chef/patrouille">
-        <input type="text" name="NomPatrouille" placeholder="Nom de la patrouille" required>
+      <form method="POST" action="/chef/patrouille/modifier/<%= locals.namepatrol %>">
+        <input type="text" name="NumCarte" placeholder="Numéro de la carte scout" required>
         <input type="submit"> 
       </form>
+      <a href="/chef/patrouille">
+        <button class="btn btn-danger" type="button">
+            Retour
+        </button>
+      </a>
   </body>
 </html>

@@ -9,6 +9,10 @@ router.post('/patrouille', usersMiddleware.checkConnexionUsers, usersMiddleware.
 
 router.get('/patrouille/delete/:NomPatrouille', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.deletePatrol);
 
-/*router.post('/patrouille/modifier/:Nompatrouille', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.updatePatrol);
-*/
+router.get('/patrouille/modifier/:NomPatrouille', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.getScout);
+
+router.post('/patrouille/modifier/:NomPatrouille', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.addScout);
+
+router.get('/patrouille/modifier/:NomPatrouille/delete/:NumCarte', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.deleteScout);
+
 module.exports = router;

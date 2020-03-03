@@ -136,9 +136,7 @@ const Admin = {
                                     }
                                 });
                                 connection.query('DELETE FROM posseder WHERE ?',{IdPatrouille:element.IdPatrouille}, function(error4, result4) {
-                                    console.log(element.IdPatrouille)
                                     if (error4) {
-                                        console.log('erreur 4')
                                         reject(Errors.CONNECTION_ERROR);
                                         return;
                                     }

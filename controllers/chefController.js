@@ -1,14 +1,16 @@
-const Chef = require('../models/chefModel')
+const Chef = require('../models/chefModel');
+const func = require('../services/cookies');
 
 exports.getPatrol = function(req, res) {
 
+    const alert = func.getAlert(req);
     Chef.getPatrol(req).then((results) => {
-        res.render('chef/patrouille', {results})
+        res.render('chef/patrouille', {results,alert})
     }).catch((error) => {
         switch(error) {
             case Chef.Errors.NO_RESULTS :
                 norequest = {text : 'Pas de Patrouille.'}
-                res.render('chef/patrouille', {norequest})
+                res.render('chef/patrouille', {norequest,alert})
                 break;
             case Chef.Errors.BAD_REQUEST :
                 alert = {type : 'danger', text : 'Requête impossible.'}
@@ -47,48 +49,117 @@ exports.deletePatrol = function(req, res) {
 exports.createPatrol = function(req, res) {
 
     const namepatrol = req.body.NomPatrouille;
-    Chef.createPatrol(req, namepatrol).then(() => {
+    if (req.body.NomPatrouille !== undefined) {
+        if (!/^[a-z]+$/.test(req.body.NomPatrouille)) {
+            func.setAlert(res, 'danger', 'Mauvais format de nom.')
+            res.redirect('/chef/patrouille')
+        }
+        else {
+            Chef.createPatrol(req, namepatrol).then(() => {
+                res.redirect('/chef/patrouille')
+            }).catch((error) => {
+                switch(error) {
+                    case Chef.Errors.PATROL_ALREADY_EXIST :
+                        func.setAlert(res, 'danger', 'Cette patrouille existe déjà.')
+                        res.redirect('/chef/patrouille')
+                        break;
+                    case Chef.Errors.NO_RESULTS :
+                        res.redirect(400,'/chef/patrouille')
+                        break;
+                    case Chef.Errors.BAD_REQUEST :
+                        res.redirect(400,'/chef/patrouille')
+                        break;
+                    default : 
+                        res.redirect(503,'/chef/patrouille')
+                        break;
+                }
+            });
+        }
+    } else {
+        func.setAlert(res, 'danger', 'Donnée manquante.')
         res.redirect('/chef/patrouille')
+    }
+};
+
+
+exports.getScout = function(req, res) {
+
+    const alert = func.getAlert(req);
+    const namepatrol = req.params.NomPatrouille;
+    Chef.getScout(req, namepatrol).then((results) => {
+        res.render('chef/modificationPat', {results,namepatrol,alert})
     }).catch((error) => {
         switch(error) {
-            case Chef.Errors.PATROL_ALREADY_EXIST :
-                res.redirect(400,'/chef/patrouille')
-                break;
-            case Chef.Errors.MATERIAL_ALREADY_EXIST :
-                res.redirect(400,'/chef/patrouille')
-                break;
             case Chef.Errors.NO_RESULTS :
-                res.redirect(400,'/chef/patrouille')
+                norequest = {text : 'Pas de scout dans la patrouille.'}
+                res.render('chef/modificationPat', {norequest,namepatrol,alert})
                 break;
             case Chef.Errors.BAD_REQUEST :
-                res.redirect(400,'/chef/patrouille')
+                alert = {type : 'danger', text : 'Requête impossible.'}
+                res.status(400).render('chef/modificationPat', {alert,namepatrol})
                 break;
             default : 
-                res.redirect(503,'/chef/patrouille')
+                alert = {type : 'danger', text : 'Service indisponible.'}
+                res.status(503).render('chef/modificationPat', {alert,namepatrol})
                 break;
         }
     });
 
 };
 
+exports.addScout = function(req, res) {
 
-exports.getScout = function(req, res) {
+    const namepatrol = req.params.NomPatrouille;
+    const numcard = req.body.NumCarte;
+    if (req.body.NumCarte !== undefined) {
+        if (!/^[A-Z0-9]{10}$/.test(req.body.NumCarte)) {
+            func.setAlert(res, 'danger', 'Mauvais format de numéro de carte.')
+            res.redirect('/chef/patrouille/modifier/'+namepatrol)
+        }
+        else {
+            Chef.addScout(req, namepatrol, numcard).then(() => {
+                res.redirect('/chef/patrouille/modifier/'+namepatrol)
+            }).catch((error) => {
+                switch(error) {
+                    case Chef.Errors.SCOUT_ALREADY_EXIST :
+                        func.setAlert(res, 'danger', 'Ce scout est déjà dans une patrouille.')
+                        res.redirect('/chef/patrouille/modifier/'+namepatrol)
+                        break;
+                    case Chef.Errors.NO_RESULTS :
+                        res.redirect(400,'/chef/patrouille/modifier/'+namepatrol)
+                        break;
+                    case Chef.Errors.BAD_REQUEST :
+                        res.redirect(400,'/chef/patrouille/modifier/'+namepatrol)
+                        break;
+                    default : 
+                        res.redirect(503,'/chef/patrouille/modifier/'+namepatrol)
+                        break;
+                }
+            });
+        }
+    } else {
+        func.setAlert(res, 'danger', 'Donnée manquante.')
+        res.redirect('/chef/patrouille/modifier/'+namepatrol)
+    }
 
-    Chef.getScout(req).then((results) => {
-        res.render('chef/modificationPat', {results})
+};
+
+exports.deleteScout = function(req, res) {
+
+    const namepatrol = req.params.NomPatrouille;
+    const numcard = req.params.NumCarte;
+    Chef.deleteScout(req, numcard).then(() => {
+        res.redirect('/chef/patrouille/modifier/'+namepatrol)
     }).catch((error) => {
         switch(error) {
             case Chef.Errors.NO_RESULTS :
-                norequest = {text : 'Pas de Patrouille.'}
-                res.render('chef/modificationPat', {norequest})
+                res.redirect('/chef/patrouille/modifier/'+namepatrol)
                 break;
             case Chef.Errors.BAD_REQUEST :
-                alert = {type : 'danger', text : 'Requête impossible.'}
-                res.status(400).render('chef/modificationPat', {alert})
+                res.redirect('/chef/patrouille/modifier/'+namepatrol)
                 break;
             default : 
-                alert = {type : 'danger', text : 'Service indisponible.'}
-                res.status(503).render('chef/modificationPat', {alert})
+                res.redirect('/chef/patrouille/modifier/'+namepatrol)
                 break;
         }
     });
