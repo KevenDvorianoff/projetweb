@@ -106,3 +106,10 @@ exports.checkChef = function(req, res, next) {
 
 }
 
+exports.logOut = function(req, res) {
+
+    func.clearToken(res);
+    res.redirect('/');
+
+}
+

@@ -15,4 +15,6 @@ router.post('/patrouille/modifier/:NomPatrouille', usersMiddleware.checkConnexio
 
 router.get('/patrouille/modifier/:NomPatrouille/delete/:NumCarte', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.deleteScout);
 
+router.get('/deconnexion', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, usersMiddleware.logOut);
+
 module.exports = router;

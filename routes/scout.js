@@ -5,4 +5,6 @@ const usersMiddleware = require('../middleware/usersMiddleware');
 
 router.get('/', usersMiddleware.checkConnexionUsers, usersMiddleware.checkScout, scoutController.Accueil);
 
+router.get('/deconnexion', usersMiddleware.checkConnexionUsers, usersMiddleware.checkScout, usersMiddleware.logOut);
+
 module.exports = router;

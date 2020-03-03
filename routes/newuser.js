@@ -7,4 +7,6 @@ router.get('/', usersMiddleware.checkConnexionUsers, usersMiddleware.checkNewUse
 
 router.post('/', usersMiddleware.checkConnexionUsers, usersMiddleware.checkNewUser, newuserController.traitementDemande);
 
+router.get('/deconnexion', usersMiddleware.checkConnexionUsers, usersMiddleware.checkNewUser, usersMiddleware.logOut);
+
 module.exports = router;
