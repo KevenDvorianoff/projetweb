@@ -26,7 +26,7 @@ const Chef = {
                         return;
                     }
                     if(results1[0] !== undefined) {
-                        connection.query('SELECT * FROM patrouille WHERE ? AND NomPatrouille != ?',[{IdTroupe:results1[0].IdTroupe},'Maîtrise'], function(error2, results2) {
+                        connection.query('SELECT * FROM patrouille WHERE ? AND NomPatrouille != ? ORDER BY NomPatrouille',[{IdTroupe:results1[0].IdTroupe},'Maîtrise'], function(error2, results2) {
                             if (error2) {
                                 reject(Errors.CONNECTION_ERROR);
                                 return;
@@ -165,7 +165,7 @@ const Chef = {
                                 return;
                             }
                             if(results2[0] !== undefined) {
-                                connection.query('SELECT NumCarte, Nom, Prenom FROM utilisateur WHERE ?',{IdPatrouille:results2[0].IdPatrouille}, function(error3, results3) {
+                                connection.query('SELECT NumCarte, Nom, Prenom FROM utilisateur WHERE ? ORDER BY Nom',{IdPatrouille:results2[0].IdPatrouille}, function(error3, results3) {
                                     if (error3) {
                                         reject(Errors.CONNECTION_ERROR);
                                         return;
@@ -303,8 +303,113 @@ const Chef = {
                 reject(Errors.BAD_REQUEST);
             });
         });
-    }
+    },
 
+    getEvents : function(req) {
+        return new Promise((resolve, reject) => {
+            const token = func.getToken(req);
+            tokenService.checkToken(token).then((result) => {
+                connection.query('SELECT IdTroupe FROM patrouille WHERE ?',{IdPatrouille:result.IdPatrouille}, function(error1, results1) {
+                    if (error1) {
+                        reject(Errors.CONNECTION_ERROR);
+                        return;
+                    }
+                    if(results1[0] !== undefined) {
+                        connection.query('SELECT IdEvenement, DateEvenement, IdType_E FROM evenements WHERE ? ORDER BY DateEvenement',{IdTroupe:results1[0].IdTroupe}, function(error2, results2) {
+                            if (error2) {
+                                reject(Errors.CONNECTION_ERROR);
+                                return;
+                            }
+                            if(results2[0] !== undefined) {
+                                resolve(results2)
+                            } else {
+                                reject(Errors.NO_RESULTS);
+                                return;
+                            }
+                        });
+                    } else {
+                        reject(Errors.NO_RESULTS);
+                        return;
+                    }
+                });
+            }).catch(() => {
+                reject(Errors.BAD_REQUEST);
+            });
+        });
+    },
+
+    deleteEvents : function(req, idevent) {
+        return new Promise((resolve, reject) => {
+            const token = func.getToken(req);
+            tokenService.checkToken(token).then((result) => {
+                connection.query('SELECT IdTroupe FROM patrouille WHERE ?',{IdPatrouille:result.IdPatrouille}, function(error1, results1) {
+                    if (error1) {
+                        reject(Errors.CONNECTION_ERROR);
+                        return;
+                    }
+                    if(results1[0] !== undefined) {
+                        connection.query('SELECT IdTroupe FROM evenements WHERE ?',{IdEvenement:idevent}, function(error2, results2) {
+                            if (error2) {
+                                reject(Errors.CONNECTION_ERROR);
+                                return;
+                            }
+                            if(results2[0] !== undefined) {
+                                if (results1[0].IdTroupe === results2[0].IdTroupe) {
+                                    connection.query('DELETE FROM evenements WHERE ?',{IdEvenement:idevent}, function(error3, result3) {
+                                        if (error3) {
+                                            reject(Errors.CONNECTION_ERROR);
+                                            return;
+                                        } else {
+                                            resolve();
+                                        }
+                                    });
+                                } else {
+                                    reject(Errors.BAD_REQUEST);
+                                }
+                            } else {
+                                reject(Errors.NO_RESULTS);
+                                return;
+                            }
+                        });
+                    } else {
+                        reject(Errors.NO_RESULTS);
+                        return;
+                    }
+                });
+            }).catch(() => {
+                reject(Errors.BAD_REQUEST);
+            });
+        });
+    },
+
+    createEvents : function(req, date, idtypeE) {
+        return new Promise((resolve, reject) => {
+            const token = func.getToken(req);
+            tokenService.checkToken(token).then((result) => {
+                connection.query('SELECT IdTroupe FROM patrouille WHERE ?',{IdPatrouille:result.IdPatrouille}, function(error1, results1) {
+                    if (error1) {
+                        reject(Errors.CONNECTION_ERROR);
+                        return;
+                    }
+                    if(results1[0] !== undefined) {
+                        connection.query('INSERT INTO evenements SET ?', {DateEvenement:date, IdType_E:idtypeE, IdTroupe:results1[0].IdTroupe}, function(error2, results2) {
+                            if (error2) {
+                                reject(Errors.CONNECTION_ERROR);
+                                return;
+                            } else {
+                                resolve();
+                            }
+                        });
+                    } else {
+                        reject(Errors.NO_RESULTS);
+                        return;
+                    }
+                });
+            }).catch(() => {
+                reject(Errors.BAD_REQUEST);
+            });
+        });
+    }
 }
 
 module.exports = Chef;

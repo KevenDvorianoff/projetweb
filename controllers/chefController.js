@@ -165,3 +165,80 @@ exports.deleteScout = function(req, res) {
     });
 
 };
+
+exports.getEvents = function(req, res) {
+
+    const alert = func.getAlert(req);
+    Chef.getEvents(req).then((results) => {
+        res.render('chef/evenement', {results,alert})
+    }).catch((error) => {
+        switch(error) {
+            case Chef.Errors.NO_RESULTS :
+                norequest = {text : 'Pas d\'évènement.'}
+                res.render('chef/evenement', {norequest,alert})
+                break;
+            case Chef.Errors.BAD_REQUEST :
+                alert = {type : 'danger', text : 'Requête impossible.'}
+                res.status(400).render('chef/evenement', {alert})
+                break;
+            default : 
+                alert = {type : 'danger', text : 'Service indisponible.'}
+                res.status(503).render('chef/evenement', {alert})
+                break;
+        }
+    });
+
+};
+
+exports.deleteEvents = function(req, res) {
+
+    const idevent = req.params.IdEvent;
+    Chef.deleteEvents(req, idevent).then(() => {
+        res.redirect('/chef/evenement')
+    }).catch((error) => {
+        switch(error) {
+            case Chef.Errors.NO_RESULTS :
+                res.redirect(400,'/chef/evenement')
+                break;
+            case Chef.Errors.BAD_REQUEST :
+                res.redirect(400,'/chef/evenement')
+                break;
+            default : 
+                res.redirect(503,'/chef/evenement')
+                break;
+        }
+    });
+
+};
+
+exports.createEvents = function(req, res) {
+
+    const date = new Date(req.body.DateEvenement);
+    const idtypeE = req.body.IdType_E;
+    if (req.body.DateEvenement !== undefined && req.body.IdType_E !== undefined) {
+        if (isNaN(date.getTime())) {
+            func.setAlert(res, 'danger', 'Mauvais format de date.')
+            res.redirect('/chef/evenement')
+        }
+        else {
+            Chef.createEvents(req, date, idtypeE).then(() => {
+                res.redirect('/chef/evenement')
+            }).catch((error) => {
+                switch(error) {
+                    case Chef.Errors.NO_RESULTS :
+                        res.redirect(400,'/chef/evenement')
+                        break;
+                    case Chef.Errors.BAD_REQUEST :
+                        res.redirect(400,'/chef/evenement')
+                        break;
+                    default : 
+                        res.redirect(503,'/chef/evenement')
+                        break;
+                }
+            });
+        }
+    } else {
+        func.setAlert(res, 'danger', 'Donnée manquante.')
+        res.redirect('/chef/patrouille')
+    }
+};

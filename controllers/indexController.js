@@ -68,7 +68,7 @@ exports.traitementInscription = function(req, res) {
         }
         let date = new Date(req.body.BirthDate);
         if (isNaN(date.getTime())) {
-            alert = {type : 'danger', text : 'Date : caractère invalide'}
+            alert = {type : 'danger', text : 'Date : format invalide'}
             res.status(400).render('inscription', {alert})
             return;
         }

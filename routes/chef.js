@@ -17,4 +17,10 @@ router.get('/patrouille/modifier/:NomPatrouille/delete/:NumCarte', usersMiddlewa
 
 router.get('/deconnexion', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, usersMiddleware.logOut);
 
+router.get('/evenement', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.getEvents);
+
+router.post('/evenement', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.createEvents);
+
+router.get('/evenement/delete/:IdEvent', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.deleteEvents);
+
 module.exports = router;
