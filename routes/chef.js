@@ -23,4 +23,11 @@ router.post('/evenement', usersMiddleware.checkConnexionUsers, usersMiddleware.c
 
 router.get('/evenement/delete/:IdEvent', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.deleteEvents);
 
+router.get('/compte', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.getCompte);
+
+router.post('/compte', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.updateCompte);
+
+router.post('/successeur', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, usersMiddleware.successeur, usersMiddleware.deleteCompte, usersMiddleware.logOut);
+
+
 module.exports = router;

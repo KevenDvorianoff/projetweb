@@ -1,6 +1,7 @@
 const tokenService = require('../services/tokenService');
 const func = require('../services/cookies');
 const Users = require('../models/usersModel');
+const Chef = require('../models/chefModel');
 
 exports.checkConnexionIndex = function(req, res, next) {
 
@@ -113,3 +114,51 @@ exports.logOut = function(req, res) {
 
 }
 
+exports.successeur = function(req, res, next) {
+
+    const numcard = req.body.NumCarte;
+    if (req.body.NumCarte !== undefined) {
+        if (!/^[A-Z0-9]{10}$/.test(req.body.NumCarte)) {
+            func.setAlert(res, 'danger', 'Mauvais format de numéro de carte.')
+            res.redirect('/chef/compte')
+        }
+        else {
+            Chef.successeur(req, numcard).then(() => {
+                next();
+            }).catch((error) => {
+                switch(error) {
+                    case Chef.Errors.NO_RESULTS :
+                        res.redirect(400,'/chef/compte')
+                        break;
+                    case Chef.Errors.BAD_REQUEST :
+                        res.redirect(400,'/chef/compte')
+                        break;
+                    default : 
+                        res.redirect(503,'/chef/compte')
+                        break;
+                }
+            });
+        }
+    } else {
+        func.setAlert(res, 'danger', 'Donnée manquante.')
+        res.redirect('/chef/compte')
+    }
+
+};
+
+exports.deleteCompte = function(req, res, next) {
+
+    Chef.deleteCompte(req).then(() => {
+        next();
+    }).catch((error) => {
+        switch(error) {
+            case Chef.Errors.BAD_REQUEST :
+                res.redirect(400,'/chef/compte')
+                break;
+            default : 
+                res.redirect(503,'/chef/compte')
+                break;
+        }
+    });
+
+};

@@ -1,6 +1,7 @@
 const connection = require('../config/database');
 const tokenService = require('../services/tokenService');
 const func = require('../services/cookies');
+const bcrypt = require('bcrypt');
 
 const Errors = {
 
@@ -409,7 +410,101 @@ const Chef = {
                 reject(Errors.BAD_REQUEST);
             });
         });
+    },
+
+    getCompte : function(req) {
+        return new Promise((resolve, reject) => {
+            const token = func.getToken(req);
+            tokenService.checkToken(token).then((result) => {
+                connection.query('SELECT Nom, Prenom, DateNaissance FROM utilisateur WHERE ?',{NumCarte:result.NumCarte}, function(error1, results1) {
+                    if (error1) {
+                        reject(Errors.CONNECTION_ERROR);
+                        return;
+                    }
+                    if(results1[0] !== undefined) {
+                        resolve(results1)
+                    } else {
+                        reject(Errors.BAD_REQUEST);
+                        return;
+                    }
+                });
+            }).catch(() => {
+                reject(Errors.BAD_REQUEST);
+            });
+        });
+    },
+
+    updateCompte : function(req, pw, lastname, firstname, birthdate) {
+        return new Promise((resolve, reject) => {
+            const token = func.getToken(req);
+            tokenService.checkToken(token).then((result) => {
+                bcrypt.hash(pw, 10, function(err, hash) {
+                    connection.query('UPDATE utilisateur SET ? WHERE ?', [{Motdepasse:hash, Nom:lastname, Prenom:firstname, DateNaissance:birthdate},{NumCarte:result.NumCarte}], function(error,results) {
+                        if (error) {
+                            reject(Errors.CONNECTION_ERROR);
+                        } else {
+                            resolve();
+                        }
+                    });
+                });
+            }).catch(() => {
+                reject(Errors.BAD_REQUEST);
+            });
+        });
+    },
+
+    deleteCompte : function(req) {
+        return new Promise((resolve, reject) => {
+            const token = func.getToken(req);
+            tokenService.checkToken(token).then((result) => {
+                connection.query('DELETE FROM utilisateur WHERE ?',{NumCarte:result.NumCarte}, function(error1, results1) {
+                    if (error1) {
+                        reject(Errors.CONNECTION_ERROR);
+                        return;
+                    } else {
+                        resolve();
+                    }
+                });
+            }).catch(() => {
+                reject(Errors.BAD_REQUEST);
+            });
+        });
+    },
+
+    successeur : function(req, numcard) {
+        return new Promise((resolve, reject) => {
+            const token = func.getToken(req);
+            tokenService.checkToken(token).then((result) => {
+                connection.query('SELECT IdPatrouille FROM utilisateur WHERE ?',{NumCarte:numcard}, function(error1, results1) {
+                    if (error1) {
+                        reject(Errors.CONNECTION_ERROR);
+                        return;
+                    }
+                    if(results1[0] !== undefined) {
+                        if (results1[0].IdPatrouille === null) {
+                            connection.query('UPDATE utilisateur SET ? WHERE ?', [{IdPatrouille:result.IdPatrouille},{NumCarte:numcard}], function(error2, results2) {
+                                if (error2) {
+                                    reject(Errors.CONNECTION_ERROR);
+                                    return;
+                                } else {
+                                    resolve();
+                                }
+                            });
+                        } else {
+                            reject(Errors.BAD_REQUEST);
+                            return;
+                        }
+                    } else {
+                        reject(Errors.NO_RESULTS);
+                        return;
+                    }
+                });
+            }).catch(() => {
+                reject(Errors.BAD_REQUEST);
+            });
+        });
     }
+
 }
 
 module.exports = Chef;
