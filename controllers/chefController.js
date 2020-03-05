@@ -1,5 +1,6 @@
 const Chef = require('../models/chefModel');
 const func = require('../services/cookies');
+const moment = require('moment-fr')
 
 exports.getPatrol = function(req, res) {
 
@@ -170,6 +171,9 @@ exports.getEvents = function(req, res) {
 
     const alert = func.getAlert(req);
     Chef.getEvents(req).then((results) => {
+        results.forEach(element => {
+            element.DateEvenement = moment(element.DateEvenement).format('LLLL')
+        });
         res.render('chef/evenement', {results,alert})
     }).catch((error) => {
         switch(error) {
@@ -247,6 +251,7 @@ exports.getCompte = function(req, res) {
 
     const alert = func.getAlert(req);
     Chef.getCompte(req).then((results) => {
+        results[0].DateNaissance = moment(results[0].DateNaissance).format("YYYY[-]MM[-]DD")
         res.render('chef/compte', {results,alert})
     }).catch((error) => {
         switch(error) {

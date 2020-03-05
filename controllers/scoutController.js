@@ -1,9 +1,13 @@
 const Scout = require('../models/scoutModel');
 const func = require('../services/cookies');
+const moment = require('moment-fr')
 
 exports.getScout = function(req, res) {
 
     Scout.getScout(req).then((results) => {
+        results.forEach(element => {
+            element.DateNaissance = moment(element.DateNaissance).format('LL')
+        });
         res.render('scout/patrouille', {results})
     }).catch((error) => {
         switch(error) {
@@ -27,6 +31,9 @@ exports.getScout = function(req, res) {
 exports.getEvent = function(req, res) {
 
     Scout.getEvent(req).then((results) => {
+        results.forEach(element => {
+            element.DateEvenement = moment(element.DateEvenement).format('LLLL')
+        });
         res.render('scout/evenement', {results})
     }).catch((error) => {
         switch(error) {
@@ -115,6 +122,7 @@ exports.getCompte = function(req, res) {
 
     const alert = func.getAlert(req);
     Scout.getCompte(req).then((results) => {
+        results[0].DateNaissance = moment(results[0].DateNaissance).format("YYYY[-]MM[-]DD")
         res.render('scout/compte', {results,alert})
     }).catch((error) => {
         switch(error) {
