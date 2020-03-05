@@ -83,9 +83,6 @@ exports.moreMateriel = function(req, res) {
         res.redirect('/scout/materiel')
     }).catch((error) => {
         switch(error) {
-            case Scout.Errors.NO_RESULTS :
-                res.redirect(400,'/scout/materiel')
-                break;
             case Scout.Errors.BAD_REQUEST :
                 res.redirect(400,'/scout/materiel')
                 break;
@@ -104,9 +101,6 @@ exports.lessMateriel = function(req, res) {
         res.redirect('/scout/materiel')
     }).catch((error) => {
         switch(error) {
-            case Scout.Errors.NO_RESULTS :
-                res.redirect(400,'/scout/materiel')
-                break;
             case Scout.Errors.BAD_REQUEST :
                 res.redirect(400,'/scout/materiel')
                 break;
@@ -131,6 +125,23 @@ exports.getCompte = function(req, res) {
                 break;
             default :
                 res.status(503).render('scout/compte', {alert})
+                break;
+        }
+    });
+
+};
+
+exports.quitPatrol = function(req, res, next) {
+
+    Scout.quitPatrol(req).then(() => {
+        next();
+    }).catch((error) => {
+        switch(error) {
+            case Scout.Errors.BAD_REQUEST :
+                res.redirect(400,'/scout/compte')
+                break;
+            default : 
+                res.redirect(503,'/scout/compte')
                 break;
         }
     });

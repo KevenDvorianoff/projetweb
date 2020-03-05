@@ -21,5 +21,6 @@ router.post('/compte', usersMiddleware.checkConnexionUsers, usersMiddleware.chec
 
 router.get('/suppression', usersMiddleware.checkConnexionUsers, usersMiddleware.checkScout, usersMiddleware.deleteCompte, usersMiddleware.logOut);
 
+router.get('/quitter', usersMiddleware.checkConnexionUsers, usersMiddleware.checkScout, scoutController.quitPatrol, usersMiddleware.logOut);
 
 module.exports = router;

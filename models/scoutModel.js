@@ -179,6 +179,24 @@ const Scout = {
         });
     },
 
+    quitPatrol : function(req) {
+        return new Promise((resolve, reject) => {
+            const token = func.getToken(req);
+            tokenService.checkToken(token).then((result) => {
+                    connection.query('UPDATE utilisateur SET ? WHERE ?', [{Idpatrouille:null},{NumCarte:result.NumCarte}], function(error2, results2) {
+                        if (error2) {
+                            reject(Errors.CONNECTION_ERROR);
+                            return;
+                        } else {
+                            resolve();
+                        }
+                    });
+            }).catch(() => {
+                reject(Errors.BAD_REQUEST);
+            });
+        });
+    },
+
     updateCompte : function(req, pw, lastname, firstname, birthdate) {
         return new Promise((resolve, reject) => {
             const token = func.getToken(req);
