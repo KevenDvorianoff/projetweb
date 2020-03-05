@@ -316,7 +316,7 @@ const Chef = {
                         return;
                     }
                     if(results1[0] !== undefined) {
-                        connection.query('SELECT IdEvenement, DateEvenement, IdType_E FROM evenements WHERE ? ORDER BY DateEvenement',{IdTroupe:results1[0].IdTroupe}, function(error2, results2) {
+                        connection.query('SELECT IdEvenement, DateEvenement, NomType_E FROM evenements NATURAL JOIN type_e WHERE ? ORDER BY DateEvenement',{IdTroupe:results1[0].IdTroupe}, function(error2, results2) {
                             if (error2) {
                                 reject(Errors.CONNECTION_ERROR);
                                 return;

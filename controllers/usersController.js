@@ -15,7 +15,7 @@ exports.checkPat = function(req, res) {
                 if(results[0].NomPatrouille === 'Maîtrise') {
                     res.redirect('/chef/patrouille');
                 } else {
-                    res.redirect('/scout');
+                    res.redirect('/scout/patrouille');
                 }
             }).catch(() => {
                 res.redirect('/');

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Evenements</title>
+    <title>Materiel</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
   </head>
   <body>
-    <a href="/chef/deconnexion">
+    <a href="/scout/deconnexion">
       <button class="btn btn-danger" type="button">
           Deconnexion
       </button>
     </a>
-    <h1>Evenements</h1>
-    <p>Welcome to Evenements</p>
+    <h1>Materiel</h1>
+    <p>Welcome to Materiel</p>
     <% if (locals.alert) { %>
         <div class="alert alert-<%= locals.alert.type %>" role="alert">
             <%= locals.alert.text %>
@@ -23,31 +23,24 @@
       <% } %>
       <% if (locals.results) { %>
         <% results.forEach(element => { %>
-          <%= element.DateEvenement %>
-          <%= element.NomType_E %>
-          <a href="/chef/evenement/delete/<%= element.IdEvenement %>">
+          <%= element.NomMateriel %>
+          <%= element.NomType_M %>
+          <%= element.Quantite %>
+          <a href="/scout/materiel/less/<%= element.IdMateriel %>">
             <button class="btn btn-danger" type="button">
-                Supprimer
+                -
+            </button>
+          </a>
+          <a href="/scout/materiel/more/<%= element.IdMateriel %>">
+            <button class="btn btn-danger" type="button">
+                +
             </button>
           </a>
         <% }) %>
       <% } %>
-      <form method="POST" action="/chef/evenement">
-        <input type="datetime-local" name="DateEvenement" placeholder="Date et heure" required>
-        <select name="IdType_E">
-            <option value="1">Weekend Patrouille</option>
-            <option value="2">Weekend Troupe</option>
-            <option value="3">Weekend HP</option>
-            <option value="4">Sortie Patrouille</option>
-            <option value="5">Sortie Troupe</option>
-            <option value="6">Sortie HP</option>
-            <option value="7">District</option>
-        </select>
-        <input type="submit"> 
-      </form>
-      <a href="/chef/patrouille">
+      <a href="/scout/patrouille">
         <button class="btn btn-danger" type="button">
-            Patrouille
+            Retour
         </button>
       </a>
   </body>
