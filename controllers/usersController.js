@@ -9,7 +9,7 @@ exports.checkPat = function(req, res) {
         if (result.Admin) {
             res.redirect('/admin/demande');
         } else if (result.IdPatrouille === null) {
-            res.redirect('/newuser');
+            res.redirect('/newuser/demande');
         } else {
             Users.getNamePat(result.IdPatrouille).then((results) => {
                 if(results[0].NomPatrouille === 'Maîtrise') {

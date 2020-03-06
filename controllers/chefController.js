@@ -1,6 +1,6 @@
 const Chef = require('../models/chefModel');
 const func = require('../services/cookies');
-const moment = require('moment-fr')
+const moment = require('moment-fr');
 
 exports.getPatrol = function(req, res) {
 
