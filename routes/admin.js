@@ -15,4 +15,6 @@ router.get('/troupe/delete/:NomTroupe', usersMiddleware.checkConnexionUsers, use
 
 router.get('/deconnexion', usersMiddleware.checkConnexionUsers, usersMiddleware.checkAdmin, usersMiddleware.logOut);
 
+router.get('/clear', usersMiddleware.checkConnexionUsers, usersMiddleware.checkAdmin, adminController.clearUser);
+
 module.exports = router;

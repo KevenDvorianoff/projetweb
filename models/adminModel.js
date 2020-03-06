@@ -167,6 +167,19 @@ const Admin = {
                 }
             });
         });
+    },
+
+    clearUser : function () {
+        return new Promise((resolve, reject) => {
+            connection.query('DELETE FROM utilisateur WHERE IdPatrouille IS null AND ?', {Admin:0}, function(error, results) {
+                if (error) {
+                    reject(Errors.CONNECTION_ERROR);
+                    return;
+                } else {
+                    resolve();
+                }
+            });
+        });
     }
 
 }

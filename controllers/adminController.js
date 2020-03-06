@@ -90,3 +90,20 @@ exports.deleteTroop = function(req, res) {
     });
 
 };
+
+exports.clearUser = function(req, res) {
+
+    Admin.clearUser().then(() => {
+        res.redirect('/admin/demande')
+    }).catch((error) => {
+        switch(error) {
+            case Admin.Errors.BAD_REQUEST :
+                res.redirect(400, '/admin/demande')
+                break;
+            default : 
+                res.redirect(503, '/admin/demande')
+                break;
+        }
+    });
+
+};
