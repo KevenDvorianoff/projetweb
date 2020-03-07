@@ -1,26 +1,27 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Inscription</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-  </head>
-  <body>
-    <h1>Inscription</h1>
-    <p>Welcome to inscription</p>
-    <form method="POST" action="/inscription">
-      <input type="text" name="NumCard" placeholder="Numéro de carte"  required>
-      <input type="text" name="LastName" placeholder="Nom" required>
-      <input type="text" name="FirstName" placeholder="Prénom" required>
-      <input type="date" name="BirthDate" placeholder="Date de naissance" required>
-      <input type="password" name="Password" placeholder="Mot de passe" required>
-      <input type="password" name="VerifyPassword" placeholder="Vérification mot de passe" required>
-      <input type="submit"> 
-    </form>
-    <% if (locals.alert) { %>
-      <div class="alert alert-<%= locals.alert.type %>" role="alert">
-          <%= locals.alert.text %>
-      </div>
-    <% } %>
-  </body>
+
+<%- include('header') %> 
+  
+   <main>
+        <form class="text-center formaccueil" method="POST" action="/inscription">
+            <h2>Inscription</h2>
+            <div class="icon">
+                <i class="icon ion-clipboard"></i>
+            </div>
+            <% if (locals.alert) { %>
+                <div class="alert alert-<%= locals.alert.type %>" role="alert">
+                    <%= locals.alert.text %>
+                </div>
+            <% } %>
+            <input class="form-control champform" type="text" name="NumCard" placeholder="Numéro de carte" required>
+            <input class="form-control champform" type="text" name="LastName" placeholder="Nom" required>
+            <input class="form-control champform" type="text" name="FirstName" placeholder="Prénom" required>
+            <input class="form-control champform" type="date" name="BirthDate" placeholder="Date de naissance" required>
+            <input class="form-control champform" type="password" name="Password" placeholder="Mot de passe" required>
+            <input class="form-control champformlast" type="password" name="VerifyPassword" placeholder="Vérification mot de passe" required>
+            <button class="btn btn-primary boutonform" type="submit">S'inscrire</button>
+            <a class="lienform" href="/">Déjà inscrit ?</a>
+        </form>
+    </main>
+</body>
+
 </html>

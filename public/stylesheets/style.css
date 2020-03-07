@@ -1,8 +1,62 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background-color: #a5eead;
+    font-family: Adamina, serif;
 }
 
-a {
-  color: #00B7FF;
+main {
+    margin-top: 146px;
+}
+
+.formaccueil {
+    width: 350px;
+    padding: 20px 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin: auto;
+    margin-bottom: 40px;
+}
+
+.h2, h2 {
+    color: #238521;
+    font-size: 40px;
+}
+
+.icon {
+    margin-bottom: 20px;
+}
+
+.icon.ion-locked {
+    font-size: 100px;
+    color: #238521;
+}
+
+.icon.ion-clipboard {
+    font-size: 100px;
+    color: #238521;
+  }
+
+.champform {
+    margin-bottom: 15px;
+    border: none;
+    border-bottom: 1px solid #238521;
+    border-radius: 0px;
+}
+
+.champformlast {
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #238521;
+    border-radius: 0px;
+}
+
+.boutonform {
+    background-color: #238521;
+    margin-bottom: 10px;
+    width: 200px;
+}
+
+.lienform {
+    color: #238521;
+    display: block;
+    font-size: 14px;
 }

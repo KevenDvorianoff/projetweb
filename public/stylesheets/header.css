@@ -1,0 +1,20 @@
+body {
+    background-color: #a5eead;
+    font-family: Adamina, serif;
+}
+
+header {
+    background-color: #238521;
+    font-family: 'Amatic SC', cursive;
+    margin-bottom: 0px;
+    padding: 5px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
+.h1, h1 {
+    font-size: 80px;
+    color: rgb(255,255,255);
+    margin-bottom: 0px;
+}

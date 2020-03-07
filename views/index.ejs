@@ -1,23 +1,21 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Accueil</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-  </head>
-  <body>
-    <h1>Accueil</h1>
-    <p>Welcome to Accueil</p>
-    <a href="/inscription">Inscription</a>
-    <form method="POST" action="/">
-      <input type="text" name="NumCard" placeholder="Numéro de carte"  required>
-      <input type="password" name="Password" placeholder="Mot de passe" required>
-      <input type="submit"> 
-    </form>
-    <% if (alert) { %>
-      <div class="alert alert-<%= alert.type %>" role="alert">
-          <%= alert.text %>
-      </div>
-    <% } %>
-  </body>
+<%- include('header') %>
+
+    <main>
+        <form class="text-center formaccueil" method="POST" action="/">
+            <h2>Connexion</h2>
+            <div class="icon">
+                <i class="icon ion-locked"></i>
+            </div>
+            <% if (alert) { %>
+                <div class="alert alert-<%= alert.type %>" role="alert">
+                    <%= alert.text %>
+                </div>
+            <% } %>
+            <input class="form-control champform" type="text" name="NumCard" placeholder="Numéro de carte" required>
+            <input class="form-control champformlast" type="password" name="Password" placeholder="Mot de passe" required>
+            <button class="btn btn-primary boutonform" type="submit">Se connecter</button>
+            <a class="lienform" href="/inscription">Pas encore inscrit ?</a></form>
+    </main>
+</body>
+
 </html>
