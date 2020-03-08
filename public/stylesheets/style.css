@@ -4,11 +4,12 @@ body {
 }
 
 main {
-    margin-top: 146px;
+    margin-top: 106px;
+    padding: 20px;
 }
 
 .formaccueil {
-    width: 350px;
+    width: 500px;
     padding: 20px 20px;
     background-color: #ffffff;
     border-radius: 10px;
@@ -53,6 +54,12 @@ main {
     background-color: #238521;
     margin-bottom: 10px;
     width: 200px;
+    border: none;
+    border-radius: 3px;
+}
+
+.boutonform:hover {
+    background-color: #37dd4b;
 }
 
 .lienform {
@@ -60,3 +67,39 @@ main {
     display: block;
     font-size: 14px;
 }
+
+.lienform:hover {
+    color: #37dd4b;
+}
+
+.affichage {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+.tableaffichage {
+    border: solid 1px;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.table thead th {
+    border: none;
+}
+
+.table td, .table th {
+    vertical-align: middle;
+}
+
+.taillebouton {
+    width: 130px;
+}
+
+.titrepage {
+    font-family: Adamina, serif;
+    font-size: 30px;
+  }
+  
+  
