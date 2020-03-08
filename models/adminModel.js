@@ -147,7 +147,7 @@ const Admin = {
                                     reject(Errors.CONNECTION_ERROR);
                                     return;
                                 } else {
-                                    connection.query('DELETE FROM evenement WHERE ?', {IdTroupe:results1[0].IdTroupe}, function(error6, results6) {
+                                    connection.query('DELETE FROM evenements WHERE ?', {IdTroupe:results1[0].IdTroupe}, function(error6, results6) {
                                         if (error6) {
                                             reject(Errors.CONNECTION_ERROR);
                                             return;
