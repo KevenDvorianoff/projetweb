@@ -25,11 +25,11 @@
         <% results.forEach(element => { %>
           <%= element.DateEvenement %>
           <%= element.NomType_E %>
-          <a href="/chef/evenement/delete/<%= element.IdEvenement %>">
-            <button class="btn btn-danger" type="button">
+          <form method="POST" action="/chef/evenement/delete/<%= element.IdEvenement %>?_method=DELETE">
+            <button class="btn btn-danger" type="input">
                 Supprimer
             </button>
-          </a>
+          </form>
         <% }) %>
       <% } %>
       <form method="POST" action="/chef/evenement">

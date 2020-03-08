@@ -26,14 +26,14 @@
           <%= element.NumCarte %>
           <%= element.Nom %>
           <%= element.Prenom %>
-          <a href="/chef/patrouille/modifier/<%= locals.namepatrol %>/delete/<%= element.NumCarte %>">
-            <button class="btn btn-danger" type="button">
+          <form method="POST" action="/chef/patrouille/modifier/<%= locals.namepatrol %>/delete/<%= element.NumCarte %>?_method=DELETE">
+            <button class="btn btn-danger" type="input">
                 Supprimer
             </button>
-          </a>
+          </form>
         <% }) %>
       <% } %>
-      <form method="POST" action="/chef/patrouille/modifier/<%= locals.namepatrol %>">
+      <form method="POST" action="/chef/patrouille/modifier/<%= locals.namepatrol %>?_method=PUT">
         <input type="text" name="NumCarte" placeholder="Numéro de la carte scout" required>
         <input type="submit"> 
       </form>

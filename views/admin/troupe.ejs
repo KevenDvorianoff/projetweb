@@ -24,11 +24,11 @@
     <% if (locals.results) { %>
       <% results.forEach(element => { %>
         <%= element.NomTroupe %>
-        <a href="/admin/troupe/delete/<%= element.NomTroupe %>">
-          <button class="btn btn-danger" type="button">
+        <form method="POST" action="/admin/troupe/delete/<%= element.NomTroupe %>?_method=DELETE">
+          <button class="btn btn-danger" type="input">
               Supprimer
           </button>
-        </a>
+        </form>
       <% }) %>
     <% } %>
     <a href="/admin/demande">

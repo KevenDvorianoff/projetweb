@@ -26,16 +26,16 @@
           <%= element.NomMateriel %>
           <%= element.NomType_M %>
           <%= element.Quantite %>
-          <a href="/scout/materiel/less/<%= element.IdMateriel %>">
-            <button class="btn btn-danger" type="button">
+          <form method="POST" action="/scout/materiel/less/<%= element.IdMateriel %>?_method=PUT">
+            <button class="btn btn-danger" type="input">
                 -
             </button>
-          </a>
-          <a href="/scout/materiel/more/<%= element.IdMateriel %>">
-            <button class="btn btn-danger" type="button">
+          </form>
+          <form method="POST" action="/scout/materiel/more/<%= element.IdMateriel %>?_method=PUT">
+            <button class="btn btn-danger" type="input">
                 +
             </button>
-          </a>
+          </form>
         <% }) %>
       <% } %>
       <a href="/scout/patrouille">

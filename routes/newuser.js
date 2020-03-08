@@ -9,9 +9,9 @@ router.post('/demande', usersMiddleware.checkConnexionUsers, usersMiddleware.che
 
 router.get('/compte', usersMiddleware.checkConnexionUsers, usersMiddleware.checkNewUser, newuserController.getCompte);
 
-router.post('/compte', usersMiddleware.checkConnexionUsers, usersMiddleware.checkNewUser, newuserController.updateCompte);
+router.put('/compte', usersMiddleware.checkConnexionUsers, usersMiddleware.checkNewUser, newuserController.updateCompte);
 
-router.get('/suppression', usersMiddleware.checkConnexionUsers, usersMiddleware.checkNewUser, usersMiddleware.deleteCompte, usersMiddleware.logOut);
+router.delete('/suppression', usersMiddleware.checkConnexionUsers, usersMiddleware.checkNewUser, usersMiddleware.deleteCompte, usersMiddleware.logOut);
 
 router.get('/deconnexion', usersMiddleware.checkConnexionUsers, usersMiddleware.checkNewUser, usersMiddleware.logOut);
 

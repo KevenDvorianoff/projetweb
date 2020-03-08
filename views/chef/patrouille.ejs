@@ -29,11 +29,11 @@
                 Modifier
             </button>
           </a>
-          <a href="/chef/patrouille/delete/<%= element.NomPatrouille %>">
-            <button class="btn btn-danger" type="button">
+          <form method="POST" action="/chef/patrouille/delete/<%= element.NomPatrouille %>?_method=DELETE">
+            <button class="btn btn-danger" type="input">
                 Supprimer
             </button>
-          </a>
+          </form>
         <% }) %>
       <% } %>
       <form method="POST" action="/chef/patrouille">

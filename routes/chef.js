@@ -7,13 +7,13 @@ router.get('/patrouille', usersMiddleware.checkConnexionUsers, usersMiddleware.c
 
 router.post('/patrouille', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.createPatrol);
 
-router.get('/patrouille/delete/:NomPatrouille', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.deletePatrol);
+router.delete('/patrouille/delete/:NomPatrouille', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.deletePatrol);
 
 router.get('/patrouille/modifier/:NomPatrouille', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.getScout);
 
-router.post('/patrouille/modifier/:NomPatrouille', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.addScout);
+router.put('/patrouille/modifier/:NomPatrouille', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.addScout);
 
-router.get('/patrouille/modifier/:NomPatrouille/delete/:NumCarte', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.deleteScout);
+router.delete('/patrouille/modifier/:NomPatrouille/delete/:NumCarte', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.deleteScout);
 
 router.get('/deconnexion', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, usersMiddleware.logOut);
 
@@ -21,13 +21,13 @@ router.get('/evenement', usersMiddleware.checkConnexionUsers, usersMiddleware.ch
 
 router.post('/evenement', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.createEvents);
 
-router.get('/evenement/delete/:IdEvent', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.deleteEvents);
+router.delete('/evenement/delete/:IdEvent', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.deleteEvents);
 
 router.get('/compte', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.getCompte);
 
-router.post('/compte', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.updateCompte);
+router.put('/compte', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, chefController.updateCompte);
 
-router.post('/successeur', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, usersMiddleware.successeur, usersMiddleware.deleteCompte, usersMiddleware.logOut);
+router.delete('/successeur', usersMiddleware.checkConnexionUsers, usersMiddleware.checkChef, usersMiddleware.successeur, usersMiddleware.deleteCompte, usersMiddleware.logOut);
 
 
 module.exports = router;

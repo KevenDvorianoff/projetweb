@@ -19,7 +19,7 @@
         </div>
       <% } %>
       <% if (locals.results) { %>
-        <form method="POST" action="/scout/compte">
+        <form method="POST" action="/scout/compte?_method=PUT">
             <input type="text" name="LastName" placeholder="Nom" value="<%= locals.results[0].Nom %>" required>
             <input type="text" name="FirstName" placeholder="Prénom" value="<%= locals.results[0].Prenom %>" required>
             <input type="date" name="BirthDate" placeholder="Date de naissance" value="<%= locals.results[0].DateNaissance %>" required>
@@ -28,16 +28,16 @@
             <input type="submit"> 
         </form>
       <% } %>
-      <a href="/scout/quitter">
-        <button class="btn btn-danger" type="button">
+      <form method="POST" action="/scout/quitter?_method=PUT">
+        <button class="btn btn-danger" type="input">
             Quitter patrouille
         </button>
-      </a>
-      <a href="/scout/suppression">
-        <button class="btn btn-danger" type="button">
+      </form>
+      <form method="POST" action="/scout/suppression?_method=DELETE">
+        <button class="btn btn-danger" type="input">
             Supprimer compte
         </button>
-      </a>
+      </form>
       <a href="/scout/patrouille">
         <button class="btn btn-danger" type="button">
             Retour

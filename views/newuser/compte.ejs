@@ -19,7 +19,7 @@
         </div>
       <% } %>
       <% if (locals.results) { %>
-        <form method="POST" action="/newuser/compte">
+        <form method="POST" action="/newuser/compte?_method=PUT">
             <input type="text" name="LastName" placeholder="Nom" value="<%= locals.results[0].Nom %>" required>
             <input type="text" name="FirstName" placeholder="Prénom" value="<%= locals.results[0].Prenom %>" required>
             <input type="date" name="BirthDate" placeholder="Date de naissance" value="<%= locals.results[0].DateNaissance %>" required>
@@ -28,11 +28,11 @@
             <input type="submit"> 
         </form>
       <% } %>
-      <a href="/newuser/suppression">
-        <button class="btn btn-danger" type="button">
+      <form method="POST" action="/newuser/suppression?_method=DELETE">
+        <button class="btn btn-danger" type="input">
             Supprimer compte
         </button>
-      </a>
+      </form>
       <a href="/newuser/demande">
         <button class="btn btn-danger" type="button">
             Retour
