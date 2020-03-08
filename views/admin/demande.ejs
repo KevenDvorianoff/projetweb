@@ -1,21 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Demande</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-  </head>
-  <body>
-    <a href="/admin/deconnexion">
-      <button class="btn btn-danger" type="button">
-          Deconnexion
-      </button>
-    </a>
-    <form method="POST" action="/admin/clear?_method=DELETE">
-      <button class="btn btn-danger" type="input">
-         Netoyer la bdd
-      </button>
-    </form>
+<%- include('../navbarAdmin') %>
+  
+  <main>
     <h1>Demande</h1>
     <p>Welcome to Demande</p>
     <% if (locals.alert) { %>
@@ -42,10 +27,6 @@
         </form>
       <% }) %>
     <% } %>
-    <a href="/admin/troupe">
-      <button type="button">
-          Troupe
-      </button>
-    </a>
+  </main>
   </body>
 </html>

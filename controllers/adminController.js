@@ -94,16 +94,22 @@ exports.deleteTroop = function(req, res) {
 exports.clearUser = function(req, res) {
 
     Admin.clearUser().then(() => {
-        res.redirect('/admin/demande')
+        res.redirect('/admin/gestion')
     }).catch((error) => {
         switch(error) {
             case Admin.Errors.BAD_REQUEST :
-                res.redirect(400, '/admin/demande')
+                res.redirect(400, '/admin/gestion')
                 break;
             default : 
-                res.redirect(503, '/admin/demande')
+                res.redirect(503, '/admin/gestion')
                 break;
         }
     });
+
+};
+
+exports.Gestion = function(req, res) {
+
+    res.render('admin/gestion')
 
 };
