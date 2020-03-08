@@ -457,12 +457,19 @@ const Chef = {
         return new Promise((resolve, reject) => {
             const token = func.getToken(req);
             tokenService.checkToken(token).then((result) => {
-                connection.query('DELETE FROM utilisateur WHERE ?',{NumCarte:result.NumCarte}, function(error1, results1) {
+                connection.query('DELETE FROM demande WHERE ?',{NumCarte:result.NumCarte}, function(error1, results1) {
                     if (error1) {
                         reject(Errors.CONNECTION_ERROR);
                         return;
                     } else {
-                        resolve();
+                        connection.query('DELETE FROM utilisateur WHERE ?',{NumCarte:result.NumCarte}, function(error2, results2) {
+                            if (error2) {
+                                reject(Errors.CONNECTION_ERROR);
+                                return;
+                            } else {
+                                resolve();
+                            }
+                        });
                     }
                 });
             }).catch(() => {
