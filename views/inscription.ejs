@@ -7,8 +7,11 @@
                 <i class="icon ion-clipboard"></i>
             </div>
             <% if (locals.alert) { %>
-                <div class="alert alert-<%= locals.alert.type %>" role="alert">
+                <div class="alert alert-<%= locals.alert.type %> alert-dismissible fade show" role="alert">
                     <%= locals.alert.text %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             <% } %>
             <input class="form-control champform" type="text" name="NumCard" placeholder="Numéro de carte" required>
