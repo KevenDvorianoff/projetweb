@@ -1,33 +1,203 @@
 <%- include('../navbarScout') %>
 
-  <main>
-    <h1>Materiel</h1>
-    <p>Welcome to Materiel</p>
-    <% if (locals.alert) { %>
-        <div class="alert alert-<%= locals.alert.type %>" role="alert">
-            <%= locals.alert.text %>
+    <main>
+        <div class="affichage">
+            <h2 class="text-center titrepage">Matériels</h2>
+            <% if (locals.alert) { %>
+                <div class="alert alert-<%= locals.alert.type %> alert-dismissible fade show" role="alert">
+                    <%= locals.alert.text %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <% } %>
+            <h3 class="text-center titresection">Bivouac</h3>
+            <div class="table-responsive text-center tableaffichage">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Quantité</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (locals.norequest) { %>
+                            <tr>
+                                <td><%= locals.norequest.text %></td>
+                            <td></td>
+                            </tr>
+                        <% } %>
+                        <% if (locals.results) { %>
+                            <% results.forEach(element => { %>
+                                <% if (element.NomType_M === 'Bivouac') { %>
+                                    <tr>
+                                        <td><%= element.NomMateriel %></td>
+                                        <td><%= element.Quantite %></td>
+                                        <td>
+                                            <form class="aligner" method="POST" action="/scout/materiel/less/<%= element.IdMateriel %>?_method=PUT">
+                                                <button class="btn btn-danger taillebouton" type="input">-</button>
+                                            </form>
+                                            <form class="aligner" method="POST" action="/scout/materiel/more/<%= element.IdMateriel %>?_method=PUT">
+                                                <button class="btn btn-success taillebouton" type="input">+</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <% } %>
+                            <% }) %> 
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <h3 class="text-center titresection">Cuisine</h3>
+            <div class="table-responsive text-center tableaffichage">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Quantité</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (locals.norequest) { %>
+                            <tr>
+                                <td><%= locals.norequest.text %></td>
+                            <td></td>
+                            </tr>
+                        <% } %>
+                        <% if (locals.results) { %>
+                            <% results.forEach(element => { %>
+                                <% if (element.NomType_M === 'Cuisine') { %>
+                                    <tr>
+                                        <td><%= element.NomMateriel %></td>
+                                        <td><%= element.Quantite %></td>
+                                        <td>
+                                            <form class="aligner" method="POST" action="/scout/materiel/less/<%= element.IdMateriel %>?_method=PUT">
+                                                <button class="btn btn-danger taillebouton" type="input">-</button>
+                                            </form>
+                                            <form class="aligner" method="POST" action="/scout/materiel/more/<%= element.IdMateriel %>?_method=PUT">
+                                                <button class="btn btn-success taillebouton" type="input">+</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <% } %>
+                            <% }) %> 
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <h3 class="text-center titresection">Froissartage</h3>
+            <div class="table-responsive text-center tableaffichage">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Quantité</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (locals.norequest) { %>
+                            <tr>
+                                <td><%= locals.norequest.text %></td>
+                            <td></td>
+                            </tr>
+                        <% } %>
+                        <% if (locals.results) { %>
+                            <% results.forEach(element => { %>
+                                <% if (element.NomType_M === 'Froissartage') { %>
+                                    <tr>
+                                        <td><%= element.NomMateriel %></td>
+                                        <td><%= element.Quantite %></td>
+                                        <td>
+                                            <form class="aligner" method="POST" action="/scout/materiel/less/<%= element.IdMateriel %>?_method=PUT">
+                                                <button class="btn btn-danger taillebouton" type="input">-</button>
+                                            </form>
+                                            <form class="aligner" method="POST" action="/scout/materiel/more/<%= element.IdMateriel %>?_method=PUT">
+                                                <button class="btn btn-success taillebouton" type="input">+</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <% } %>
+                            <% }) %> 
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <h3 class="text-center titresection">Topographie</h3>
+            <div class="table-responsive text-center tableaffichage">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Quantité</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (locals.norequest) { %>
+                            <tr>
+                                <td><%= locals.norequest.text %></td>
+                            <td></td>
+                            </tr>
+                        <% } %>
+                        <% if (locals.results) { %>
+                            <% results.forEach(element => { %>
+                                <% if (element.NomType_M === 'Topographie') { %>
+                                    <tr>
+                                        <td><%= element.NomMateriel %></td>
+                                        <td><%= element.Quantite %></td>
+                                        <td>
+                                            <form class="aligner" method="POST" action="/scout/materiel/less/<%= element.IdMateriel %>?_method=PUT">
+                                                <button class="btn btn-danger taillebouton" type="input">-</button>
+                                            </form>
+                                            <form class="aligner" method="POST" action="/scout/materiel/more/<%= element.IdMateriel %>?_method=PUT">
+                                                <button class="btn btn-success taillebouton" type="input">+</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <% } %>
+                            <% }) %> 
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <h3 class="text-center titresection">Expression</h3>
+            <div class="table-responsive text-center tableaffichage">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Quantité</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (locals.norequest) { %>
+                            <tr>
+                                <td><%= locals.norequest.text %></td>
+                            <td></td>
+                            </tr>
+                        <% } %>
+                        <% if (locals.results) { %>
+                            <% results.forEach(element => { %>
+                                <% if (element.NomType_M === 'Expression') { %>
+                                    <tr>
+                                        <td><%= element.NomMateriel %></td>
+                                        <td><%= element.Quantite %></td>
+                                        <td>
+                                            <form class="aligner" method="POST" action="/scout/materiel/less/<%= element.IdMateriel %>?_method=PUT">
+                                                <button class="btn btn-danger taillebouton" type="input">-</button>
+                                            </form>
+                                            <form class="aligner" method="POST" action="/scout/materiel/more/<%= element.IdMateriel %>?_method=PUT">
+                                                <button class="btn btn-success taillebouton" type="input">+</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <% } %>
+                            <% }) %> 
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
         </div>
-      <% } %>
-      <% if (locals.norequest) { %>
-            <%= locals.norequest.text %>
-      <% } %>
-      <% if (locals.results) { %>
-        <% results.forEach(element => { %>
-          <%= element.NomMateriel %>
-          <%= element.NomType_M %>
-          <%= element.Quantite %>
-          <form method="POST" action="/scout/materiel/less/<%= element.IdMateriel %>?_method=PUT">
-            <button class="btn btn-danger" type="input">
-                -
-            </button>
-          </form>
-          <form method="POST" action="/scout/materiel/more/<%= element.IdMateriel %>?_method=PUT">
-            <button class="btn btn-danger" type="input">
-                +
-            </button>
-          </form>
-        <% }) %>
-      <% } %>
-  </main>
-  </body>
+    </main>
+</body>
+
 </html>

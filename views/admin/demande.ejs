@@ -1,32 +1,52 @@
 <%- include('../navbarAdmin') %>
-  
-  <main>
-    <h1>Demande</h1>
-    <p>Welcome to Demande</p>
-    <% if (locals.alert) { %>
-      <div class="alert alert-<%= locals.alert.type %>" role="alert">
-          <%= locals.alert.text %>
-      </div>
-    <% } %>
-    <% if (locals.norequest) { %>
-          <%= locals.norequest.text %>
-    <% } %>
-    <% if (locals.results) { %>
-      <% results.forEach(element => { %>
-        <%= element.NomTroupe %>
-        <%= element.NumCarte %>
-        <form method="POST" action="/admin/demande/accept/<%= element.NumCarte %>">
-          <button class="btn btn-success" type="input">
-              Accepter
-          </button>
-        </form>
-        <form method="POST" action="/admin/demande/delete/<%= element.NumCarte %>?_method=DELETE">
-          <button class="btn btn-danger" type="input">
-              Supprimer
-          </button>
-        </form>
-      <% }) %>
-    <% } %>
-  </main>
-  </body>
+
+    <main>
+        <div class="affichage">
+            <h2 class="text-center titrepage">Demandes</h2>
+            <% if (locals.alert) { %>
+                <div class="alert alert-<%= locals.alert.type %> alert-dismissible fade show" role="alert">
+                    <%= locals.alert.text %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <% } %>
+            <div class="table-responsive text-center tableaffichage">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nom de la troupe</th>
+                            <th>Numéro de carte</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (locals.norequest) { %>
+                            <tr>
+                                <td><%= locals.norequest.text %></td>
+                                <td></td>
+                            </tr>
+                        <% } %>
+                        <% if (locals.results) { %>
+                            <% results.forEach(element => { %>
+                                <tr>
+                                    <td><%= element.NomTroupe %></td>
+                                    <td><%= element.NumCarte %></td>
+                                    <td>
+                                        <form class="aligner" method="POST" action="/admin/demande/accept/<%= element.NumCarte %>">
+                                            <button class="btn btn-success taillebouton" type="input">Accepter</button>
+                                        </form>
+                                        <form class="aligner" method="POST" action="/admin/demande/delete/<%= element.NumCarte %>?_method=DELETE">
+                                            <button class="btn btn-danger taillebouton" type="input">Supprimer</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% }) %> 
+                        <% } %>   
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+
 </html>

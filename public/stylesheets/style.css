@@ -17,7 +17,7 @@ main {
     margin-bottom: 40px;
 }
 
-.h2, h2 {
+.titreaccueil {
     color: #238521;
     font-size: 40px;
 }
@@ -95,11 +95,26 @@ main {
 
 .taillebouton {
     width: 130px;
+    min-width: 50px;
+}
+
+.taillebouton2 {
+    width: 230px;
+    min-width: 50px;
 }
 
 .titrepage {
     font-family: Adamina, serif;
     font-size: 30px;
   }
+
+.titresection {
+    font-family: Adamina, serif;
+    font-size: 20px;
+}
+
+.aligner {
+    display: inline;
+}
   
   

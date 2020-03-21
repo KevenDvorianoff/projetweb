@@ -1,35 +1,53 @@
 <%- include('../navbarChef') %>
 
-  <main>
-    <h1>Patrouille</h1>
-    <p>Welcome to Patrouille</p>
-    <% if (locals.alert) { %>
-        <div class="alert alert-<%= locals.alert.type %>" role="alert">
-            <%= locals.alert.text %>
+    <main>
+        <div class="affichage">
+            <h2 class="text-center titrepage">Patrouilles</h2>
+            <% if (locals.alert) { %>
+                <div class="alert alert-<%= locals.alert.type %> alert-dismissible fade show" role="alert">
+                    <%= locals.alert.text %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <% } %>
+            <div class="table-responsive text-center tableaffichage">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nom de la patrouille</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (locals.norequest) { %>
+                            <tr>
+                                <td><%= locals.norequest.text %></td>
+                            </tr>
+                        <% } %>
+                        <% if (locals.results) { %>
+                            <% results.forEach(element => { %>
+                                <tr>
+                                    <td><%= element.NomPatrouille %></td>
+                                    <td>
+                                        <a class="aligner" href="/chef/patrouille/modifier/<%= element.NomPatrouille %>">
+                                            <button class="btn btn-success taillebouton" type="button">Modifier</button>
+                                        </a>
+                                        <form class="aligner" method="POST" action="/chef/patrouille/delete/<%= element.NomPatrouille %>?_method=DELETE">
+                                            <button class="btn btn-danger taillebouton" type="input">Supprimer</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% }) %> 
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <form class="d-flex justify-content-center align-items-center" method="POST" action="/chef/patrouille">
+                <input class="form-control taillebouton" type="text" name="NomPatrouille" placeholder="Patrouille" required>
+                <button class="btn btn-primary taillebouton" type="input">Ajouter</button>
+            </form>
         </div>
-      <% } %>
-      <% if (locals.norequest) { %>
-            <%= locals.norequest.text %>
-      <% } %>
-      <% if (locals.results) { %>
-        <% results.forEach(element => { %>
-          <%= element.NomPatrouille %>
-          <a href="/chef/patrouille/modifier/<%= element.NomPatrouille %>">
-            <button class="btn btn-success" type="button">
-                Modifier
-            </button>
-          </a>
-          <form method="POST" action="/chef/patrouille/delete/<%= element.NomPatrouille %>?_method=DELETE">
-            <button class="btn btn-danger" type="input">
-                Supprimer
-            </button>
-          </form>
-        <% }) %>
-      <% } %>
-      <form method="POST" action="/chef/patrouille">
-        <input type="text" name="NomPatrouille" placeholder="Nom de la patrouille" required>
-        <input type="submit"> 
-      </form>
-  </main>
-  </body>
+    </main>
+</body>
+
 </html>

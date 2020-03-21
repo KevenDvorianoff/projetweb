@@ -1,32 +1,59 @@
 <%- include('../navbarChef') %>
 
-  <main>
-    <h1>Patrouille</h1>
-    <p>Welcome to Patrouille</p>
-    <% if (locals.alert) { %>
-        <div class="alert alert-<%= locals.alert.type %>" role="alert">
-            <%= locals.alert.text %>
+    <main>
+        <div class="affichage">
+            <h2 class="text-center titrepage">Modifier la patrouille</h2>
+            <% if (locals.alert) { %>
+                <div class="alert alert-<%= locals.alert.type %> alert-dismissible fade show" role="alert">
+                    <%= locals.alert.text %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <% } %>
+            <div class="table-responsive text-center tableaffichage">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Numéro de carte</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (locals.norequest) { %>
+                            <tr>
+                                <td><%= locals.norequest.text %></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        <% } %>
+                        <% if (locals.results) { %>
+                            <% results.forEach(element => { %>
+                                <tr>
+                                    <td><%= element.NumCarte %></td>
+                                    <td><%= element.Nom %></td>
+                                    <td><%= element.Prenom %></td>
+                                    <td>
+                                        <form method="POST" action="/chef/patrouille/modifier/<%= locals.namepatrol %>/delete/<%= element.NumCarte %>?_method=DELETE">
+                                            <button class="btn btn-danger taillebouton" type="input">Supprimer</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% }) %> 
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <form class="d-flex justify-content-center align-items-center" method="POST" action="/chef/patrouille/modifier/<%= locals.namepatrol %>?_method=PUT">
+                <input class="form-control taillebouton" type="text" name="NumCarte" placeholder="Numéro carte" required>
+                <button class="btn btn-primary taillebouton" type="input">Ajouter</button>
+            </form>
+            <a href="/chef/patrouille">
+              <button class="btn btn-danger taillebouton" type="button">Retour</button>
+          </a>
         </div>
-      <% } %>
-      <% if (locals.norequest) { %>
-            <%= locals.norequest.text %>
-      <% } %>
-      <% if (locals.results && locals.namepatrol) { %>
-        <% results.forEach(element => { %>
-          <%= element.NumCarte %>
-          <%= element.Nom %>
-          <%= element.Prenom %>
-          <form method="POST" action="/chef/patrouille/modifier/<%= locals.namepatrol %>/delete/<%= element.NumCarte %>?_method=DELETE">
-            <button class="btn btn-danger" type="input">
-                Supprimer
-            </button>
-          </form>
-        <% }) %>
-      <% } %>
-      <form method="POST" action="/chef/patrouille/modifier/<%= locals.namepatrol %>?_method=PUT">
-        <input type="text" name="NumCarte" placeholder="Numéro de la carte scout" required>
-        <input type="submit"> 
-      </form>
-  </main>
-  </body>
+    </main>
+</body>
+
 </html>

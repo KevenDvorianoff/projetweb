@@ -1,40 +1,62 @@
 <%- include('../navbarChef') %>
 
-  <main>
-    <h1>Evenements</h1>
-    <p>Welcome to Evenements</p>
-    <% if (locals.alert) { %>
-        <div class="alert alert-<%= locals.alert.type %>" role="alert">
-            <%= locals.alert.text %>
+    <main>
+        <div class="affichage">
+            <h2 class="text-center titrepage">Evènements</h2>
+            <% if (locals.alert) { %>
+                <div class="alert alert-<%= locals.alert.type %> alert-dismissible fade show" role="alert">
+                    <%= locals.alert.text %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <% } %>
+            <div class="table-responsive text-center tableaffichage">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date et heure</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (locals.norequest) { %>
+                            <tr>
+                                <td><%= locals.norequest.text %></td>
+                                <td></td>
+                            </tr>
+                        <% } %>
+                        <% if (locals.results) { %>
+                            <% results.forEach(element => { %>
+                                <tr>
+                                    <td><%= element.DateEvenement %></td>
+                                    <td><%= element.NomType_E %></td>
+                                    <td>
+                                        <form method="POST" action="/chef/evenement/delete/<%= element.IdEvenement %>?_method=DELETE">
+                                            <button class="btn btn-danger taillebouton" type="input">Supprimer</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% }) %> 
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <form class="d-flex justify-content-center align-items-center" method="POST" action="/chef/evenement">
+                <input class="form-control taillebouton2" type="datetime-local" name="DateEvenement" placeholder="Date et heure" required>
+                <select class="form-control taillebouton2" name="IdType_E">
+                  <option value="1">Weekend Patrouille</option>
+                  <option value="2">Weekend Troupe</option>
+                  <option value="3">Weekend HP</option>
+                  <option value="4">Sortie Patrouille</option>
+                  <option value="5">Sortie Troupe</option>
+                  <option value="6">Sortie HP</option>
+                  <option value="7">District</option>
+                </select>
+                <button class="btn btn-primary taillebouton" type="input">Ajouter</button>
+            </form>
         </div>
-      <% } %>
-      <% if (locals.norequest) { %>
-            <%= locals.norequest.text %>
-      <% } %>
-      <% if (locals.results) { %>
-        <% results.forEach(element => { %>
-          <%= element.DateEvenement %>
-          <%= element.NomType_E %>
-          <form method="POST" action="/chef/evenement/delete/<%= element.IdEvenement %>?_method=DELETE">
-            <button class="btn btn-danger" type="input">
-                Supprimer
-            </button>
-          </form>
-        <% }) %>
-      <% } %>
-      <form method="POST" action="/chef/evenement">
-        <input type="datetime-local" name="DateEvenement" placeholder="Date et heure" required>
-        <select name="IdType_E">
-            <option value="1">Weekend Patrouille</option>
-            <option value="2">Weekend Troupe</option>
-            <option value="3">Weekend HP</option>
-            <option value="4">Sortie Patrouille</option>
-            <option value="5">Sortie Troupe</option>
-            <option value="6">Sortie HP</option>
-            <option value="7">District</option>
-        </select>
-        <input type="submit"> 
-      </form>
-  </main>
-  </body>
+    </main>
+</body>
+
 </html>

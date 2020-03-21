@@ -1,22 +1,44 @@
 <%- include('../navbarScout') %>
 
-  <main>
-    <h1>Evenement</h1>
-    <p>Welcome to Evenement</p>
-    <% if (locals.alert) { %>
-        <div class="alert alert-<%= locals.alert.type %>" role="alert">
-            <%= locals.alert.text %>
+    <main>
+        <div class="affichage">
+            <h2 class="text-center titrepage">Evènements</h2>
+            <% if (locals.alert) { %>
+                <div class="alert alert-<%= locals.alert.type %> alert-dismissible fade show" role="alert">
+                    <%= locals.alert.text %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <% } %>
+            <div class="table-responsive text-center tableaffichage">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date et heure</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (locals.norequest) { %>
+                            <tr>
+                                <td><%= locals.norequest.text %></td>
+                                <td></td>
+                            </tr>
+                        <% } %>
+                        <% if (locals.results) { %>
+                            <% results.forEach(element => { %>
+                                <tr>
+                                    <td><%= element.DateEvenement %></td>
+                                    <td><%= element.NomType_E %></td>
+                                </tr>
+                            <% }) %> 
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
         </div>
-      <% } %>
-      <% if (locals.norequest) { %>
-            <%= locals.norequest.text %>
-      <% } %>
-      <% if (locals.results) { %>
-        <% results.forEach(element => { %>
-          <%= element.DateEvenement %>
-          <%= element.NomType_E %>
-        <% }) %>
-      <% } %>
-  </main>
-  </body>
+    </main>
+</body>
+
 </html>

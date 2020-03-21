@@ -3,15 +3,15 @@
     <main>
     <h1>Demande</h1>
     <p>Welcome to demande</p>
-    <form method="POST" action="/newuser/demande">
-        <input type="text" name="NomTroupe" placeholder="Nom de l'unité"  required>
-        <input type="submit"> 
-    </form>
     <% if (locals.alert) { %>
         <div class="alert alert-<%= locals.alert.type %>" role="alert">
             <%= locals.alert.text %>
         </div>
     <% } %>
+    <form method="POST" action="/newuser/demande">
+        <input type="text" name="NomTroupe" placeholder="Nom de l'unité" required>
+        <input type="submit"> 
+    </form>
     </main>
   </body>
 </html>
