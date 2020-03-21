@@ -1,28 +1,34 @@
 <%- include('../navbarNewUser') %>
 
-  <main>
-    <h1>Compte</h1>
-    <p>Welcome to Compte</p>
-    <% if (locals.alert) { %>
-        <div class="alert alert-<%= locals.alert.type %>" role="alert">
-            <%= locals.alert.text %>
+    <main>
+        <div class="affichage">
+            <h2 class="text-center titrepage">Mon compte</h2>
+            <% if (locals.alert) { %>
+                <div class="alert alert-<%= locals.alert.type %> alert-dismissible fade show" role="alert">
+                    <%= locals.alert.text %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <% } %>
+            <% if (locals.results) { %>
+                <h3 class="text-center titresection">Information compte</h3>
+                <form class="d-flex justify-content-center align-items-center espacebas" method="POST" action="/newuser/compte?_method=PUT">
+                    <div class="text-center">
+                            <input class="form-control taillebouton4" type="text" name="LastName" placeholder="Nom" value="<%= locals.results[0].Nom %>" required>
+                            <input class="form-control taillebouton4" type="text" name="FirstName" placeholder="Prénom" value="<%= locals.results[0].Prenom %>" required>
+                            <input class="form-control taillebouton4" type="date" name="BirthDate" placeholder="Date de naissance" value="<%= locals.results[0].DateNaissance %>" required>
+                            <input class="form-control taillebouton4" type="password" name="Password" placeholder="Mot de passe" required>
+                            <input class="form-control taillebouton4" type="password" name="VerifyPassword" placeholder="Vérification mot de passe" required>
+                            <button class="btn btn-danger taillebouton2" type="input">Modifier</button>
+                    </div>
+                </form>
+            <% } %>
+            <form class="d-flex justify-content-center align-items-center" method="POST" action="/newuser/suppression?_method=DELETE">
+                <button class="btn btn-danger taillebouton2" type="input">Supprimer compte</button>
+            </form>
         </div>
-      <% } %>
-      <% if (locals.results) { %>
-        <form method="POST" action="/newuser/compte?_method=PUT">
-            <input type="text" name="LastName" placeholder="Nom" value="<%= locals.results[0].Nom %>" required>
-            <input type="text" name="FirstName" placeholder="Prénom" value="<%= locals.results[0].Prenom %>" required>
-            <input type="date" name="BirthDate" placeholder="Date de naissance" value="<%= locals.results[0].DateNaissance %>" required>
-            <input type="password" name="Password" placeholder="Mot de passe" required>
-            <input type="password" name="VerifyPassword" placeholder="Vérification mot de passe" required>
-            <input type="submit"> 
-        </form>
-      <% } %>
-      <form method="POST" action="/newuser/suppression?_method=DELETE">
-        <button class="btn btn-danger" type="input">
-            Supprimer compte
-        </button>
-      </form>
-  </main>
-  </body>
+    </main>
+</body>
+
 </html>

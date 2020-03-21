@@ -1,17 +1,22 @@
 <%- include('../navbarNewUser') %>
 
     <main>
-    <h1>Demande</h1>
-    <p>Welcome to demande</p>
-    <% if (locals.alert) { %>
-        <div class="alert alert-<%= locals.alert.type %>" role="alert">
-            <%= locals.alert.text %>
+        <div class="affichage">
+            <h2 class="text-center titrepage">Faire une demande</h2>
+            <% if (locals.alert) { %>
+                <div class="alert alert-<%= locals.alert.type %> alert-dismissible fade show" role="alert">
+                    <%= locals.alert.text %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <% } %>
+            <form class="d-flex justify-content-center align-items-center" method="POST" action="/newuser/demande">
+                <input class="form-control taillebouton2" type="text" name="NomTroupe" placeholder="Nom de l'unité (n°-nom)" required>
+                <button class="btn btn-primary taillebouton2" type="input">Envoyer la demande </button>
+            </form>
         </div>
-    <% } %>
-    <form method="POST" action="/newuser/demande">
-        <input type="text" name="NomTroupe" placeholder="Nom de l'unité" required>
-        <input type="submit"> 
-    </form>
     </main>
-  </body>
+</body>
+
 </html>

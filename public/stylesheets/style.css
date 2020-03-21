@@ -103,18 +103,38 @@ main {
     min-width: 50px;
 }
 
+.taillebouton3 {
+    width: 400px;
+    min-width: 50px;
+}
+
+.taillebouton4 {
+    width: 500px;
+    min-width: 50px;
+}
+
 .titrepage {
     font-family: Adamina, serif;
     font-size: 30px;
+    margin-bottom: 30px;
   }
 
 .titresection {
     font-family: Adamina, serif;
     font-size: 20px;
+    margin-bottom: 10px;
 }
 
 .aligner {
     display: inline;
+}
+
+.retour {
+    display: block;
+}
+
+.espacebas {
+    margin-bottom: 50px;
 }
   
   

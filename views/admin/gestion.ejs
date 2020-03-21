@@ -1,13 +1,13 @@
 <%- include('../navbarAdmin') %>
 
-  <main>
-    <h1>Gestion</h1>
-    <p>Welcome to Gestion</p>
-    <form method="POST" action="/admin/clear?_method=DELETE">
-        <button class="btn btn-danger" type="input">
-           Netoyer la bdd
-        </button>
-    </form>
-  </main>
-  </body>
+    <main>
+        <div class="affichage">
+            <h2 class="text-center titrepage">Gestion des comptes</h2>
+            <form class="d-flex justify-content-center align-items-center" method="POST" action="/admin/clear?_method=DELETE">
+                <button class="btn btn-danger taillebouton3" type="input">Supprimer les comptes sans patrouille</button>
+            </form>
+        </div>
+    </main>
+</body>
+
 </html>
